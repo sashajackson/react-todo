@@ -30,7 +30,7 @@ app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
   });
 
-  app.get('*', (req, res) => {
+  app.get('/', (req, res) => {
       res.sendFile(path.join(publicPath, 'index.html'));
   })
 
