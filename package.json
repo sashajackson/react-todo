@@ -1,6 +1,10 @@
 {
   "name": "react-todo",
   "version": "0.1.0",
+  "engines" : {
+    "node": "15.5.1",
+    "npm": "7.3.0"
+  },
   "private": true,
   "main": "backend/index",
   "dependencies": {
@@ -15,9 +19,6 @@
     "react-moment": "^1.1.1",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
-  },
-  "engines" : {
-    "node": "15.5.1"
   },
   "scripts": {
     "start": "react-scripts start",
