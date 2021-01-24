@@ -3,8 +3,10 @@ const app = express();
 const cors = require("cors");
 const PORT = 4000;
 const router = express.Router();
-const mongoose = require('mongoose');
+const path = require('path');
+const publicPath = path.join(__dirname, '..', '..', 'public');
 require('./models/model');
+const mongoose = require('mongoose');
 const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
 const MongoClient = require('mongodb').MongoClient;
@@ -27,6 +29,10 @@ mongoose.connection.on('error', (err) => {
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
   });
+
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(publicPath, 'index.html'));
+  })
 
   let id = null;
   getId = async () => {
