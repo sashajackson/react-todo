@@ -7,7 +7,7 @@ import axios from 'axios'
 import Time from './components/layout/time'
 
 const api = axios.create({
-  baseUrl: 'http://react-todo-17.herokuapp.com/'
+  baseUrl: 'http://localhost:4000/'
 })
 
 class App extends Component {
@@ -99,7 +99,7 @@ class App extends Component {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
         console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
-          api.post('http://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
+          api.post('https://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
             data.push(result.data.post);

@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const router = express.Router();
 const path = require('path');
 const publicPath = path.join(__dirname, '..', '..', 'public');
