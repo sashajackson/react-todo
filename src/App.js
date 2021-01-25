@@ -7,7 +7,7 @@ import axios from 'axios'
 import Time from './components/layout/time'
 
 const api = axios.create({
-  baseUrl: 'https://react-todo-17.herokuapp.com/'
+  baseUrl: 'http://localhost:4000/'
 })
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
     this._isMounted = true;
  
     api
-      .get('https://react-todo-17.herokuapp.com/getData')
+      .get('http://localhost:4000/getData')
       .then(result => {
         if (this._isMounted) {
           this.setState({
@@ -61,7 +61,7 @@ class App extends Component {
             todo.completed = !todo.completed;
             // console.log('this is todo change ', todo.completed);
             api
-            .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
+            .put('http://localhost:4000//updateComplete', {properties: {
               id: id,
               complete: todo.completed
             }})
@@ -83,7 +83,7 @@ class App extends Component {
     update = (id, complete) => {
 
       api
-      .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
+      .put('http://localhost:4000/updateComplete', {properties: {
         id: id,
         complete: complete
       }})
@@ -99,7 +99,7 @@ class App extends Component {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
         console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
-          api.post('https://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
+          api.post('http://localhost:4000/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
             data.push(result.data.post);
