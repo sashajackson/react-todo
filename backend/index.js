@@ -4,7 +4,7 @@ const cors = require("cors");
 const PORT = process.env.PORT || 4000;
 const router = express.Router();
 const path = require('path');
-const publicPath = path.join(__dirname, '..', '..', 'public');
+const publicPath = path.join(__dirname, '..', 'build');
 require('./models/model');
 const mongoose = require('mongoose');
 const {MONGOURI} = require('./keys');
@@ -14,6 +14,8 @@ const MongoClient = require('mongodb').MongoClient;
 app.use(cors());
 app.use(express.json());
 app.use('/', router);
+app.use(express.static(publicPath));
+// app.use(express.static('../public'));
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser: true,
@@ -30,10 +32,6 @@ app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
   });
 
-  app.get('/', (req, res) => {
-      res.sendFile(path.join(publicPath, 'index.html'));
-  })
-
   let id = null;
   getId = async () => {
     await MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, (err, db) => {
@@ -47,6 +45,11 @@ app.listen(PORT, function() {
           });
     })
 };
+
+router.get('/', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+})
+
 
 router.post('/postData', async (req, res) => {
     await getId();
