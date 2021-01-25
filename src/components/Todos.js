@@ -12,13 +12,12 @@ class Task extends Component {
 
         // console.log(this.props.task);
         console.log(this.props.task);
-        if(Array.isArray(this.props.task)){
+
         let todoArray = this.props.task.filter(val => val.id);
         return todoArray.map((todo) => (
             <TodoItem key={todo.id} task={todo} updateRecord ={this.props.updateRecord} markComplete={this.props.markComplete} delTodo={this.props.delTodo} 
             log={this.props.log} />
                 ))
-        };
     }
   
 }
