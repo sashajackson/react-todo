@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 4000;
 const router = express.Router();
 const path = require('path');
@@ -10,18 +11,23 @@ const mongoose = require('mongoose');
 const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
 const MongoClient = require('mongodb').MongoClient;
-
-app.use(cors({
-    origin: "*"
-}));
-app.use(express.json());
-app.use('/', router);
+const corsOptions = {
+    origin: "https://react-todo-17.herokuapp.com",
+}
+// app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(express.static(publicPath));
+app.options('*', cors());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use('/', router);
+
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser: true,
@@ -79,14 +85,15 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-router.get('/getData', (req, res) => {
+router.get('/getData', cors(corsOptions), (req, res) => {
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
-        dbo.collection("todos").find({}).toArray(function(err, result) {
+        dbo.collection("todos").find({}).toArray(async function(err, result) {
           if (err) throw err;
           console.log('this is result in index ', result);
-          res.send(result);
+          let final = await result;
+          res.send(final);
           db.close();
         });
 

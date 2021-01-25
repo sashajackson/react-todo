@@ -27,7 +27,7 @@ class App extends Component {
   componentDidMount() {
     this._isMounted = true;
  
-    api
+    axios
       .get('https://react-todo-17.herokuapp.com/getData', {
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -57,7 +57,7 @@ class App extends Component {
             console.log('found id', todo.id)
             todo.completed = !todo.completed;
 
-            api
+            axios
             .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
               id: id,
               complete: todo.completed
@@ -79,7 +79,7 @@ class App extends Component {
 
     update = (id, complete) => {
 
-      api
+      axios
       .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
         id: id,
         complete: complete
@@ -96,7 +96,7 @@ class App extends Component {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
         console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
-          api.post('https://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
+          axios.post('https://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
             data.push(result.data.post);
