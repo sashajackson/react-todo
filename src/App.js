@@ -36,11 +36,12 @@ class App extends Component {
       })
       .then(result => {
         console.log('this is result ', result);
-        if (this._isMounted) {
-          this.setState({
-            tasks: result.data,
-          });
-        }
+        // if (this._isMounted) {
+        //   this.setState({
+        //     tasks: result.data,
+        //   });
+        // }
+
       });
   }
 
