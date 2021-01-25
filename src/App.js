@@ -7,7 +7,7 @@ import axios from 'axios'
 import Time from './components/layout/time'
 
 const api = axios.create({
-  baseUrl: 'http://localhost:4000/'
+  baseUrl: 'https://localhost:4000/'
 })
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
     this._isMounted = true;
  
     api
-      .get('http://react-todo-17.herokuapp.com/getData')
+      .get('https://react-todo-17.herokuapp.com/getData')
       .then(result => {
         if (this._isMounted) {
           this.setState({
@@ -61,7 +61,7 @@ class App extends Component {
             todo.completed = !todo.completed;
             // console.log('this is todo change ', todo.completed);
             api
-            .put('http://react-todo-17.herokuapp.com/updateComplete', {properties: {
+            .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
               id: id,
               complete: todo.completed
             }})
@@ -83,7 +83,7 @@ class App extends Component {
     update = (id, complete) => {
 
       api
-      .put('http://react-todo-17.herokuapp.com/updateComplete', {properties: {
+      .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
         id: id,
         complete: complete
       }})
