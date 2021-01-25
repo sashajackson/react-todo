@@ -7,7 +7,7 @@ import axios from 'axios'
 import Time from './components/layout/time'
 
 const api = axios.create({
-  baseUrl: 'http://localhost:4000/'
+  baseUrl: 'http://react-todo-17.herokuapp.com/'
 })
 
 class App extends Component {
