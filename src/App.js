@@ -18,7 +18,9 @@ class App extends Component {
     // this.axiosStart();
 
     this.state = {
-        tasks: []
+        tasks: [
+          { id: 10, task: "wash car"},
+        ]
       }
   }
 
