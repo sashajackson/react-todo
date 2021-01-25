@@ -28,7 +28,12 @@ class App extends Component {
     this._isMounted = true;
  
     api
-      .get('https://react-todo-17.herokuapp.com/getData')
+      .get('https://react-todo-17.herokuapp.com/getData', {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS, HEAD",
+        }
+      })
       .then(result => {
         console.log('this is result ', result);
         if (this._isMounted) {
