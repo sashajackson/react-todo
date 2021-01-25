@@ -11,22 +11,31 @@ const mongoose = require('mongoose');
 const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
 const MongoClient = require('mongodb').MongoClient;
+let id = null;
+const whitelist = ['http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
+
 const corsOptions = {
-    origin: "https://react-todo-17.herokuapp.com",
+    origin: function (origin, callback) {
+        if (!origin) {
+            return callback(null, true);
+        }
+
+        if (whitelist.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
 }
 // app.use(express.json());
+app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
-app.options('*', cors());
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 app.use('/', router);
+
 
 
 mongoose.connect(MONGOURI,{
@@ -44,7 +53,6 @@ app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
   });
 
-  let id = null;
   getId = async () => {
     await MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, (err, db) => {
         const dbo = db.db("<dbname>");
@@ -58,8 +66,9 @@ app.listen(PORT, function() {
     })
 };
 
-router.get('/', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
+app.get('/', (req, res) => {
+    // res.sendFile(path.join(publicPath, 'index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 })
 
 
@@ -85,7 +94,8 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-router.get('/getData', cors(corsOptions), (req, res) => {
+router.get('/getData', (req, res) => {
+    console.log('in getdata');
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
@@ -95,9 +105,9 @@ router.get('/getData', cors(corsOptions), (req, res) => {
         //   res.send(final);
         //   db.close();
         // });
-        db("<dbname>").collection("todos").find({}).toArray()
+        dbo.collection("todos").find({}).toArray()
         .then((result) => {
-            res.send("hello world");
+            res.send(result);
             db.close();
         })
 

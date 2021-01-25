@@ -6,9 +6,11 @@ import './App.css'
 import axios from 'axios'
 import Time from './components/layout/time'
 
-const api = axios.create({
-  baseUrl: 'https://react-todo-17.herokuapp.com/',
-})
+// const api = axios.create({
+//   baseUrl: 'https://react-todo-17.herokuapp.com/',
+// })
+
+const baseUrl = 'https://react-todo-17.herokuapp.com';
 
 class App extends Component {
   _isMounted = false;
@@ -28,14 +30,9 @@ class App extends Component {
     this._isMounted = true;
  
     axios
-      .get('https://react-todo-17.herokuapp.com/getData', {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, OPTIONS, HEAD",
-        }
-      })
+      .get(baseUrl + '/getData')
       .then(result => {
-        console.log('this is result ', result);
+        console.log('this is result ', result.data);
         // if (this._isMounted) {
         //   this.setState({
         //     tasks: result.data,
@@ -58,7 +55,7 @@ class App extends Component {
             todo.completed = !todo.completed;
 
             axios
-            .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
+            .put(baseUrl + '/updateComplete', {properties: {
               id: id,
               complete: todo.completed
             }})
@@ -80,7 +77,7 @@ class App extends Component {
     update = (id, complete) => {
 
       axios
-      .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
+      .put(baseUrl + '/updateComplete', {properties: {
         id: id,
         complete: complete
       }})
@@ -96,7 +93,7 @@ class App extends Component {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
         console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
-          axios.post('https://react-todo-17.herokuapp.com/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
+          axios.post(baseUrl + '/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
             data.push(result.data.post);
