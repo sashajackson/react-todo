@@ -6,12 +6,6 @@ class Task extends Component {
 
 
     render(){
-        // return this.props.tasks.map((task) => (
-        //     <TodoItem key={task.id} task={task} markComplete={this.props.markComplete} />
-        // ))
-
-        // console.log(this.props.task);
-        
         if(Array.isArray(this.props.task)){
             console.log(this.props.task);
             let todoArray = this.props.task.filter(val => val.id);
