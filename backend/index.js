@@ -95,7 +95,7 @@ router.get('/getData', cors(corsOptions), (req, res) => {
         //   res.send(final);
         //   db.close();
         // });
-        dbo.collection("todos").find({}).toArray()
+        db("<dbname>").collection("todos").find({}).toArray()
         .then((result) => {
             res.send("hello world");
             db.close();
