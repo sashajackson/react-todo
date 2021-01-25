@@ -30,7 +30,7 @@ class App extends Component {
     this._isMounted = true;
  
     axios
-      .get(baseUrl + '/getData')
+      .get('/getData')
       .then(result => {
         console.log('this is result ', result.data);
         // if (this._isMounted) {
@@ -55,7 +55,7 @@ class App extends Component {
             todo.completed = !todo.completed;
 
             axios
-            .put(baseUrl + '/updateComplete', {properties: {
+            .put('/updateComplete', {properties: {
               id: id,
               complete: todo.completed
             }})
@@ -77,7 +77,7 @@ class App extends Component {
     update = (id, complete) => {
 
       axios
-      .put(baseUrl + '/updateComplete', {properties: {
+      .put('/updateComplete', {properties: {
         id: id,
         complete: complete
       }})

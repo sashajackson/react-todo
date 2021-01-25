@@ -15,18 +15,9 @@ let id = null;
 const whitelist = ['http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
 
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (!origin) {
-            return callback(null, true);
-        }
-
-        if (whitelist.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }
+    origin: whitelist,
+    credentials: true,
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
 }
 // app.use(express.json());
 app.use(cors(corsOptions));
@@ -68,7 +59,7 @@ app.listen(PORT, function() {
 
 app.get('/', (req, res) => {
     // res.sendFile(path.join(publicPath, 'index.html'));
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(publicPath, 'index.html'));
 })
 
 
