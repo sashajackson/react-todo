@@ -79,12 +79,13 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-router.get('/getData', cors(), (req, res) => {
+router.get('/getData', (req, res) => {
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
         dbo.collection("todos").find({}).toArray(function(err, result) {
           if (err) throw err;
+          console.log('this is result in index ', result);
           res.send(result);
           db.close();
         });
