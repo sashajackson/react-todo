@@ -97,7 +97,7 @@ router.get('/getData', cors(corsOptions), (req, res) => {
         // });
         dbo.collection("todos").find({}).toArray()
         .then((result) => {
-            res.send(result);
+            res.send("hello world");
             db.close();
         })
 
