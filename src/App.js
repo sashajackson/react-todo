@@ -15,7 +15,6 @@ class App extends Component {
 
   constructor(){
     super();
-    // this.axiosStart();
 
     this.state = {
         tasks: [
@@ -50,12 +49,8 @@ class App extends Component {
         tasks: this.state.tasks.map(todo => {
           if(todo.id === id){
             console.log('found id', todo.id)
-            // this.setState({
-            //   completed: !todo.complete
-            // })
-            // console.log('this is todo ', todo);
             todo.completed = !todo.completed;
-            // console.log('this is todo change ', todo.completed);
+
             api
             .put('https://react-todo-17.herokuapp.com/updateComplete', {properties: {
               id: id,
@@ -63,7 +58,7 @@ class App extends Component {
             }})
             .then(result => {
               if (this._isMounted) {
-                // console.log('is Mounted, updated field: ', result);
+                
               }
             });
           }
@@ -73,7 +68,7 @@ class App extends Component {
     };
 
     delTodo = (id) => {
-      // this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+      this.setState({tasks: [...this.state.tasks.filter(todo => todo.id !== id)]})
     }
 
     update = (id, complete) => {

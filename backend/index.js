@@ -15,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use('/', router);
 app.use(express.static(publicPath));
-// app.use(express.static('../public'));
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser: true,
@@ -101,21 +100,3 @@ router.put('/updateComplete', (req, res) => {
         })
     })
 });
-
-// getId = async () => {
-//     await MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, (err, db) => {
-//         const dbo = db.db("<dbname>");
-//         dbo.collection("todos").find({})
-//         .toArray(function(err, result) {
-//             if (err) throw err;
-//             id = result.length - 1;
-//             console.log(id);
-//             return id;
-//           });
-//     })
-// };
-
-
-// router.post('/allposts', (req, res) => {
-
-// })

@@ -14,28 +14,13 @@ export class TodoItem extends Component {
       }
     }
 
-    // handleNameChange = (e) => {
-    //    this.props.markComplete.bind(this, this.props.task.id);
-    //    this.props.update.bind(this, this.props.task.id, this.props.task.completed)
-    //   }
 
     render(){
-        // const { id, task } = this.props.tasks;
-        // return (
-        //     <div style={this.getStyle()}>
-        //         <input type="checkbox" onChange={this.props.markComplete.bind(this, id)} /> {' '}
-        //         { task }
-        //         <button onClick={this.props.delTodo.bind(this, id)} style={btnStyle}>x</button>
-        //     </div>
-        // )
 
-        
-        
         return (
             <div className="row" style={this.getStyle()}>
                 <div className="col-12">
                <p style={{marginBottom: "0"}}>
-                {/* <input style={{paddingRight: "10px"}} onClick={this.props.markComplete.bind(this, this.props.task.id, this.props.task.completed)} /> */}
                 <span style={{marginLeft: "10px"}} onClick={this.props.markComplete.bind(this, this.props.task.id, this.props.task.completed)} >
                 {this.props.task.task}
                 </span>
