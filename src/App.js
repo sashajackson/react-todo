@@ -25,14 +25,12 @@ class App extends Component {
   componentDidMount() {
     this._isMounted = true;
  
-    return new Promise((resolve, reject) => {
+
 
       axios
-        .get(baseUrl + '/getData', { headers: {Accept: 'application/json'}})
+        .get('/getData')
         .then((result, err) => {
-          resolve(result.data);
-          reject(err)
-          console.log('this is result data ', result.data);
+          console.log('this is result data ', result);
           if (this._isMounted) {
             this.setState({
               tasks: result.data,
@@ -40,7 +38,7 @@ class App extends Component {
           }
   
         });
-    })
+
   }
 
   componentWillUnmount() {
