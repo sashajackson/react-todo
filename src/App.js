@@ -8,7 +8,7 @@ import Time from './components/layout/time'
 
 let api = axios.create({
   baseUrl: 'https://react-todo-17.herokuapp.com',
-  responseType: 'json',
+  
 })
 const base = 'http://localhost:4000';
 
