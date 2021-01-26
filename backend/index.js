@@ -93,19 +93,9 @@ router.get('/getData', (req, res) => {
         if (err) throw err;
         var dbo = db.db("<dbname>");
         let collection = dbo.collection("todos");
- 
-        // collection.find().toArray((err, result) => {
-        //     if(err) throw err
-        //     console.log(result);
-        //     res.setHeader('Content-type','application/json')
-        //     res.send(result);
-        //     db.close();
-        // })
-
         let cursor = collection.find({}).toArray();
         cursor.then(result => {
             console.log('this is result in cursor ', result);
-            res.setHeader('Content-Type', 'application/json');
             res.send(result);
             db.close();
         })
