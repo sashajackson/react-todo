@@ -26,7 +26,7 @@ class App extends Component {
     this._isMounted = true;
  
     axios
-      .get('/getData')
+      .get('/getData', { headers: {Accept: 'application/json'}})
       .then(result => {
         console.log('this is result ', result);
         if (this._isMounted) {

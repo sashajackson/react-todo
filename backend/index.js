@@ -105,6 +105,7 @@ router.get('/getData', (req, res) => {
         let cursor = collection.find({}).toArray();
         cursor.then(result => {
             console.log('this is result in cursor ', result);
+            res.setHeader('Content-Type', 'application/json');
             res.send(result);
             db.close();
         })
