@@ -95,7 +95,7 @@ app.get('/getData', (req, res) => {
         let cursor = collection.find({}).toArray();
         cursor.then(result => {
             console.log('this is result in cursor ', result);
-            res.send(result);
+            res.json(result);
             db.close();
         })
       });
