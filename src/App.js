@@ -7,6 +7,7 @@ import axios from 'axios'
 import Time from './components/layout/time'
 
 const baseUrl = 'https://react-todo-17.herokuapp.com';
+const base = 'http://localhost:4000';
 
 class App extends Component {
   _isMounted = false;
@@ -28,7 +29,7 @@ class App extends Component {
 
 
       axios
-        .get('/getData')
+        .get(`${base}/getData`)
         .then((result, err) => {
           console.log('this is result data ', result);
           if (this._isMounted) {
