@@ -6,7 +6,10 @@ import './App.css'
 import axios from 'axios'
 import Time from './components/layout/time'
 
-const baseUrl = 'https://react-todo-17.herokuapp.com';
+let api = axios.create({
+  baseUrl: 'https://react-todo-17.herokuapp.com',
+  responseType: 'json',
+})
 const base = 'http://localhost:4000';
 
 class App extends Component {
@@ -28,8 +31,8 @@ class App extends Component {
  
 
 
-      axios
-        .get(`${baseUrl}/getData`)
+      api
+        .get('/getData')
         .then((result, err) => {
           console.log('this is result data ', result);
           if (this._isMounted) {
@@ -93,7 +96,7 @@ class App extends Component {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
         console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
-          axios.post(baseUrl + '/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
+          axios.post('/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
             data.push(result.data.post);
