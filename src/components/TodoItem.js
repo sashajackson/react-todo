@@ -9,8 +9,8 @@ export class TodoItem extends Component {
           borderBottom: '1px #ccc dotted',
           fontSize: '20px',
           textDecoration: this.props.task.completed ? 'line-through' : 'none',
-          margin: "20px",
-          borderRadius: "5%"
+          margin: "0 20px 20px 20px",
+          borderRadius: "30px"
       }
     }
 

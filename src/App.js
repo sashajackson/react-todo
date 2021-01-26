@@ -28,10 +28,6 @@ class App extends Component {
 
   componentDidMount() {
     this._isMounted = true;
- 
-    api
-      .get('https://randomuser.me/api')
-        .then(response => console.log(response));
 
       axios
         .get('/getData')
@@ -116,8 +112,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Time />
         <Input log={this.log} task={this.state.tasks}/>
+        <Time />
         <Task task={this.state.tasks} markComplete={this.markComplete}
         delTodo={this.delTodo} update={this.update} log={this.log}/>
       </div>
