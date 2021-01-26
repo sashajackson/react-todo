@@ -96,7 +96,7 @@ router.get('/getData', (req, res) => {
         //   res.send(final);
         //   db.close();
         // });
-        dbo.collection("todos").find({}).toArray()
+        dbo.collection("todos").find().toArray()
         .then((result) => {
             res.send(result);
             db.close();

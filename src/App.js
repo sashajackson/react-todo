@@ -32,12 +32,12 @@ class App extends Component {
     axios
       .get('/getData')
       .then(result => {
-        console.log('this is result ', result.data);
-        // if (this._isMounted) {
-        //   this.setState({
-        //     tasks: result.data,
-        //   });
-        // }
+        console.log('this is result ', result);
+        if (this._isMounted) {
+          this.setState({
+            tasks: result.data,
+          });
+        }
 
       });
   }
