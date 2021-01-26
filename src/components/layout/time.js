@@ -2,19 +2,35 @@ import React, {Component} from 'react'
 import moment from 'moment'
 
 class Time extends Component {
+
+    state = {
+        day: moment().format('dddd'),
+        time: moment().format('LT'),
+    }
+
+    startTimer = () => {
+        setInterval(() => {
+            this.setState({
+                day: moment().format('dddd'),
+                time: moment().format('LT'),
+            })
+        }, 1000);
+    }
+
     render(){
+        this.startTimer();
         return (
             <div className="row">
                 
                 <div className="col-6">
                     <div style={dayStyle}>
-                        <h5>{moment().format('dddd')}</h5>
+                        <h5 style={{marginBottom: "0"}}>{moment().format('dddd')}</h5>
                     </div>
                 </div>
 
                 <div className="col-6">
                     <div style={timeStyle}>
-                        <h5>{moment().format('LT')}</h5>
+                        <h5 style={{marginBottom: "0"}}>{moment().format('LT')}</h5>
                     </div>
                 </div>
 
@@ -25,14 +41,20 @@ class Time extends Component {
 }
 
 const dayStyle = {
-    textAlign: "left",
+    textAlign: "center",
     marginTop: "2em",
     margin: "20px",
+    background: "white",
+    padding: "10px",
+    borderRadius: "30px",
 }
 const timeStyle = {
-    textAlign: "right",
+    textAlign: "center",
     marginTop: "2em",
     margin: "20px",
+    background: "white",
+    padding: "10px",
+    borderRadius: "30px",
 }
 
 export default Time
