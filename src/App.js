@@ -33,7 +33,7 @@ class App extends Component {
       .get('https://randomuser.me/api')
         .then(response => console.log(response));
 
-      api
+      axios
         .get('/getData')
         .then((result, err) => {
           console.log('this is result data ', result);
