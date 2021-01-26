@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
 // app.use('/', router);
-
+const base = 'https://react-todo-17.herokuapp.com';
 
 
 
@@ -86,7 +86,7 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-app.get('/getData', (req, res) => {
+app.get(`${base}/getData`, (req, res) => {
     console.log('in getdata');
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
