@@ -86,9 +86,9 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-app.get('/getData', (req, res) => {
+app.get('/getData', async (req, res) => {
     console.log('in getdata');
-    MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
+    await MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
         let collection = dbo.collection("todos");
