@@ -24,7 +24,7 @@ export class TodoItem extends Component {
                 <span style={{marginLeft: "10px"}} onClick={this.props.markComplete.bind(this, this.props.task.id, this.props.task.completed)} >
                 {this.props.task.task}
                 </span>
-                <button onClick={this.props.delTodo.bind(this, this.props.task.id)} style={btnStyle}>x</button>
+                <button onClick={this.props.delTodo.bind(this, this.props.task.id)} style={btnStyle}><i style={iconStyle} className="fas fa-times-square"></i></button>
                </p>
 
                 </div>
@@ -39,10 +39,12 @@ TodoItem.propTypes = {
 }
 
 const btnStyle = {
-    color: 'red',
     border: 'none',
-    borderRadius: '30%',
     float: 'right'
+}
+
+const iconStyle = {
+    color: "red",
 }
 
 export default TodoItem

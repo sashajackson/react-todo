@@ -6,11 +6,11 @@ import './App.css'
 import axios from 'axios'
 import Time from './components/layout/time'
 
-let api = axios.create({
-  baseUrl: 'https://react-todo-17.herokuapp.com',
+// let api = axios.create({
+//   baseUrl: 'https://react-todo-17.herokuapp.com',
   
-})
-const base = 'http://localhost:4000';
+// })
+// const base = 'http://localhost:4000';
 
 class App extends Component {
   _isMounted = false;

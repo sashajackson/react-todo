@@ -37,7 +37,7 @@ const parentDiv = {
 }
 
 const btnStyle = {
-    background: 'dodgerblue',
+    background: 'black',
     color: 'ghostwhite',
     padding: '10px',
     height: '50px',
