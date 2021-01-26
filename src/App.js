@@ -29,7 +29,9 @@ class App extends Component {
   componentDidMount() {
     this._isMounted = true;
  
-
+    api
+      .get('https://randomuser.me/api')
+        .then(response => console.log(response));
 
       api
         .get('/getData')
