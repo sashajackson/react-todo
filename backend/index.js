@@ -105,17 +105,9 @@ router.get('/getData', (req, res) => {
         let cursor = collection.find({}).toArray();
         cursor.then(result => {
             console.log('this is result in cursor ', result);
-            res.send([{
-                id: 1,
-                task: 'grocery shop',
-                completed: false
-            }])
+            res.send(result);
             db.close();
         })
-        // console.log('this is collection find ', cursor);
-        
-
-
       });
 })
 
