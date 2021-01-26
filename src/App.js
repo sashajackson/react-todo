@@ -29,7 +29,7 @@ class App extends Component {
 
 
       axios
-        .get(`${base}/getData`)
+        .get(`${baseUrl}/getData`)
         .then((result, err) => {
           console.log('this is result data ', result);
           if (this._isMounted) {
