@@ -89,7 +89,7 @@ router.get('/getData', (req, res) => {
         if (err) throw err;
         var dbo = db.db("<dbname>");
  
-        dbo.collection("todos").find({}).toArray((err, result) => {
+        dbo.todos.find({}).toArray((err, result) => {
             if(err) throw err
             console.log(result);
             res.send(result);
