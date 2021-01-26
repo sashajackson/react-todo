@@ -93,7 +93,7 @@ app.get('/getData', async (req, res) => {
         var dbo = db.db("<dbname>");
         let collection = dbo.collection("todos");
         let cursor = collection.find({}).toArray();
-        console.log('this is dbo ', dbo);
+        console.log('this is dbo ', dbo.todos);
         cursor.then(result => {
             // console.log('this is result in cursor ', result);
             res.json(result);
