@@ -24,7 +24,10 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
+app.use(express.json());
 app.use('/', router);
+app.use(express.static(path.join(__dirname, '..', 'build')))
+
 
 
 
@@ -88,10 +91,12 @@ router.get('/getData', (req, res) => {
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
+        let collection = dbo.collection("todos");
  
-        dbo.todos.find({}).toArray((err, result) => {
+        collection.find().toArray((err, result) => {
             if(err) throw err
             console.log(result);
+            res.setHeader('Content-type','application/json')
             res.send(result);
             db.close();
         })
