@@ -64,7 +64,7 @@ app.get('/', (req, res) => {
 })
 
 
-router.post('/postData', async (req, res) => {
+app.post('/postData', async (req, res) => {
     await getId();
     let { id, task } = req.body;
     console.log('this is req.body id', req.body.id);
@@ -102,7 +102,7 @@ app.get('/getData', async (req, res) => {
       });
 })
 
-router.put('/updateComplete', (req, res) => {
+app.put('/updateComplete', (req, res) => {
     let _id = req.body.properties.id;
     let _complete = req.body.properties.complete;
     MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, function(err, db){
