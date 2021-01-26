@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
-app.use('/', router);
+// app.use('/', router);
 
 
 
@@ -59,9 +59,8 @@ app.listen(PORT, function() {
     })
 };
 
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
-    // res.sendFile(test);
 })
 
 
@@ -87,7 +86,7 @@ router.post('/postData', async (req, res) => {
         return;
 });
 
-router.get('/getData', (req, res) => {
+app.get('/getData', (req, res) => {
     console.log('in getdata');
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
