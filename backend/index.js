@@ -19,9 +19,8 @@ const corsOptions = {
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
 }
-// app.use(express.json());
+
 app.use(cors(corsOptions));
-// app.options('*', cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
@@ -58,7 +57,6 @@ app.listen(PORT, function() {
 };
 
 app.get('/', (req, res) => {
-    // res.sendFile(path.join(publicPath, 'index.html'));
     res.sendFile(path.join(publicPath, 'index.html'));
 })
 
@@ -90,12 +88,7 @@ router.get('/getData', (req, res) => {
     MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
-        // dbo.collection("todos").find({}).toArray(function(err, result) {
-        //   if (err) throw err;
-        //   let final = result;
-        //   res.send(final);
-        //   db.close();
-        // });
+ 
         dbo.collection("todos").find().toArray()
         .then((result) => {
             res.send(result);
@@ -112,7 +105,6 @@ router.put('/updateComplete', (req, res) => {
     MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, function(err, db){
         if(err) throw err;
         let dbo = db.db('<dbname>');
-        //next step
         dbo.collection("todos").updateOne({"id": _id}, {$set: {"completed": _complete}});
         res.send({
             id: id,
