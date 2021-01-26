@@ -20,13 +20,14 @@ const corsOptions = {
     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
 }
 
+const test = path.join(__dirname, '..', 'test.html');
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(express.static(publicPath));
-app.use(express.json());
+// app.use(express.static(publicPath));
+app.use(express.static(test));
 app.use('/', router);
-app.use(express.static(path.join(__dirname, '..', 'build')))
+
 
 
 
@@ -59,8 +60,9 @@ app.listen(PORT, function() {
     })
 };
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
+router.get('/', (req, res) => {
+    // res.sendFile(path.join(publicPath, 'index.html'));
+    res.sendFile(test);
 })
 
 
