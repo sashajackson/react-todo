@@ -44,7 +44,7 @@ class App extends Component {
       axios
         .get('/getData')
         .then((result, err) => {
-          console.log('this is result data ', result);
+          // console.log('this is result data ', result);
           if (this._isMounted) {
             this.setState({
               tasks: result.data,
@@ -124,6 +124,10 @@ class App extends Component {
   }
 
   submitSignIn = () => {
+    if(this.isAuth()){
+      this._history.push('/dashboard')
+      return;
+    }
     let e = document.getElementById("email").value;
     let p = document.getElementById("password").value;
     let obj;
@@ -152,7 +156,7 @@ class App extends Component {
               } else {
                 this._history.push('/');
               }
-            }
+            } 
           })
  
   }
@@ -174,33 +178,29 @@ class App extends Component {
       <div className="App">
         <Alert />
         <Header />
-        {/* <Router exact path="/home" history={history}>
-          <Input log={this.log} task={this.state.tasks}/>
-          <Time />
-          <Task task={this.state.tasks} markComplete={this.markComplete}
-            delTodo={this.delTodo} update={this.update} log={this.log}/>
-        </Router> */}
         
           <Router history={history}>
 
           <Switch>
           
-            <Route exact path="/signIn" >
-              <SignIn task={this.state.tasks} submitSignIn={this.submitSignIn}/>
-            </Route>
-          
-          
-            {/* <Route exact path='/dashboard'>
-              <Dashboard />
+            {/* <Route exact path="/signIn" render={() => this.isAuth() ? <Dashboard/> : <Redirect to={{pathname="/signIn"}}}>
+            <SignIn task={this.state.tasks} submitSignIn={this.submitSignIn} /> 
             </Route> */}
-            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard/> : <Redirect to="/" /> )} >
+
+            <Route exact path="/signIn">
+            <SignIn submitSignIn={this.submitSignIn} /> 
             </Route>
+
+            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard /> : <Redirect to="/signIn" /> )} >
+            </Route>
+
             <Route exact path="/" >
               <Input log={this.log} task={this.state.tasks}/>
               <Time />
               <Task task={this.state.tasks} markComplete={this.markComplete}
                   delTodo={this.delTodo} update={this.update} log={this.log}/>
             </Route>
+
             </Switch>
 
           </Router>

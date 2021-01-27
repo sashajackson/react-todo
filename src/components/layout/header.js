@@ -1,8 +1,21 @@
 import React, {Component} from 'react' 
+import {createBrowserHistory } from 'history'
+import { Redirect } from 'react-router-dom'
 import './header.css'
 
 class Header extends Component {
-
+  _history = createBrowserHistory({forceRefresh: true});
+  display = 'Login';
+  isAuth = () => {
+      if(localStorage.getItem('isAuth')){
+        console.log('page should be changed now');
+          this.display = 'Dashboard';
+          this._history.push('/dashboard');
+      } else {
+        this._history.push('/signIn');
+        this.display = 'Sign In'
+      }
+  }
   
 
 
@@ -21,7 +34,7 @@ class Header extends Component {
                 <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
               </li>
               <li className="nav-item">
-                <a style={aStyle} href="/signIn" className="nav-link"><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> Sign In</a>
+                <a style={aStyle} className="nav-link" onClick={this.isAuth}><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> {this.display} </a>
               </li>
               <li className="nav-item">
                 <a style={aStyle} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
