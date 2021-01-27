@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 export class TodoItem extends Component {
     getStyle = () => {
       return {
-          background: '#f4f4f4',
+          background: 'white',
           padding: '10px',
           borderBottom: '1px #ccc dotted',
           fontSize: '20px',
@@ -14,6 +14,12 @@ export class TodoItem extends Component {
       }
     }
 
+    getStatus = () => {
+        return {
+            color: this.props.task.completed ? 'green' : 'red',
+        }
+    }
+
 
     render(){
 
@@ -21,10 +27,15 @@ export class TodoItem extends Component {
             <div className="row" style={this.getStyle()}>
                 <div className="col-12">
                <p style={{marginBottom: "0"}}>
-                <span style={{marginLeft: "10px"}} onClick={this.props.markComplete.bind(this, this.props.task.id, this.props.task.completed)} >
+                {/* <span style={{marginLeft: "10px"}} onClick={this.props.markComplete.bind(this, this.props.task.id, this.props.task.completed)} >
+                {this.props.task.task}
+                </span> */}
+                {/* <button onClick={this.props.delTodo.bind(this, this.props.task.id)} style={btnStyle}><i style={iconStyle} className="fas fa-circle"></i></button> */}
+                <span style={{marginLeft: "10px"}}>
                 {this.props.task.task}
                 </span>
-                <button onClick={this.props.delTodo.bind(this, this.props.task.id)} style={btnStyle}><i style={iconStyle} className="fas fa-times-square"></i></button>
+                
+                <button style={btnStyle}><i style={this.getStatus()} className="fas fa-circle"></i></button>
                </p>
 
                 </div>
@@ -44,7 +55,7 @@ const btnStyle = {
 }
 
 const iconStyle = {
-    color: "black",
+    color: "red",
 }
 
 export default TodoItem
