@@ -51,11 +51,9 @@ TodoItem.propTypes = {
 
 const btnStyle = {
     border: 'none',
-    float: 'right'
+    float: 'right',
+    background: "white"
 }
 
-const iconStyle = {
-    color: "red",
-}
 
 export default TodoItem

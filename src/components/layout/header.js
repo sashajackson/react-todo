@@ -11,7 +11,7 @@ class Header extends Component {
       return (
         <nav className="navbar" style={headerStyle}>
         <div className="container-fluid">
-          <a style={brandStyle} className="navbar-brand" href="http://localhost:3000/">GroupList</a>
+          <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
           </button>
@@ -24,7 +24,7 @@ class Header extends Component {
                 <a style={aStyle} href="/signIn" className="nav-link"><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> Sign In</a>
               </li>
               <li className="nav-item">
-                <a style={aStyle} className="nav-link" href="http://localhost:3000/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
+                <a style={aStyle} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
               </li>
             </ul>
           </div>

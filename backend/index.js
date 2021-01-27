@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 app.post('/postData', async (req, res) => {
     await getId();
     let { id, task } = req.body;
-    console.log('this is req.body id', req.body.id);
+
     if(!task){
         return res.status(422).json({error:"please enter task"})
     }
@@ -94,7 +94,6 @@ app.get('/getData', async (req, res) => {
         let collection = dbo.collection("todos");
         let cursor = collection.find({}).toArray();
         cursor.then(result => {
-            // console.log('this is result in cursor ', result);
             res.json(result);
             db.close();
         })
@@ -102,9 +101,6 @@ app.get('/getData', async (req, res) => {
 })
 
 app.post('/delete', (req, res) => {
-    console.log('initiating complete..');
-    console.log('this is request body ', req.body)
-    console.log('this is request body id ', req.body.id)
     res.send('successfully called delete');
     MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
         if(err) throw err;
@@ -132,5 +128,20 @@ app.put('/updateComplete', (req, res) => {
 
 app.get('/signIn', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+app.post('/signInApp', (req, res) => {
+    console.log('this is post incoming ', req.body)
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        var dbo = db.db('<dbname>');
+        let cursor = dbo.collection('users');
+        cursor.find({email: req.body.email})
+            .toArray()
+                .then(result => {
+                    res.json(result);
+                    db.close();
+        })
+    })
 })
 
