@@ -130,3 +130,7 @@ app.put('/updateComplete', (req, res) => {
     })
 });
 
+app.get('/signIn', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+})
+
