@@ -1,4 +1,5 @@
 import React from 'react' 
+import './header.css'
 
 function Header(){
     return (
@@ -12,13 +13,10 @@ function Header(){
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul style={ulStyle} className="navbar-nav">
         <li className="nav-item">
-          <a style={aStyle} className="nav-link active" aria-current="page" href="http://localhost:3000/">Home <span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span></a>
+          <a style={aStyle} className="nav-link active" aria-current="page" href="http://localhost:3000/"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home</a>
         </li>
         <li className="nav-item">
-          <a style={aStyle} className="nav-link" href="http://localhost:3000/">Groups <span style={ulIcon}><i className="fad fa-users"></i></span></a>
-        </li>
-        <li className="nav-item">
-          <a style={aStyle} className="nav-link" href="http://localhost:3000/">Pricing</a>
+          <a style={aStyle} className="nav-link" href="http://localhost:3000/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
         </li>
       </ul>
     </div>
@@ -30,7 +28,6 @@ function Header(){
 }
 
 const headerStyle =  {
-    background: 'black',
     color: 'ghostwhite',
     padding: '10px',
     textAlign: 'center',
@@ -46,7 +43,7 @@ const ulStyle = {
 
 const menuIcon = {
     fontSize: '30px',
-    color: 'ghostwhite',
+    color: 'black',
 }
 
 const brandStyle = {
@@ -59,12 +56,12 @@ const brandStyle = {
 
 const aStyle = {
   textAlign: "left",
-  color: '#b2b2ff',
+  color: 'black',
   fontFamily: 'Trispace',
 }
 
 const ulIcon = {
-  color: '#ffcccc',
+  color: 'black',
 }
 
 export default Header;

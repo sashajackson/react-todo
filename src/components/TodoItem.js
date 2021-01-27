@@ -44,7 +44,7 @@ const btnStyle = {
 }
 
 const iconStyle = {
-    color: "red",
+    color: "black",
 }
 
 export default TodoItem

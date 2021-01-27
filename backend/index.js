@@ -12,7 +12,7 @@ const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
 const MongoClient = require('mongodb').MongoClient;
 let id = null;
-const whitelist = ['http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
+const whitelist = ['http://localhost:3000','http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
 
 const corsOptions = {
     origin: whitelist,
@@ -87,13 +87,12 @@ app.post('/postData', async (req, res) => {
 });
 
 app.get('/getData', async (req, res) => {
-    console.log('in getdata');
+    console.log('served data to user');
     await MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
         let collection = dbo.collection("todos");
         let cursor = collection.find({}).toArray();
-        console.log('this is dbo ', dbo.todos);
         cursor.then(result => {
             // console.log('this is result in cursor ', result);
             res.json(result);
@@ -101,6 +100,21 @@ app.get('/getData', async (req, res) => {
         })
       });
 })
+
+app.post('/delete', (req, res) => {
+    console.log('initiating complete..');
+    console.log('this is request body ', req.body)
+    console.log('this is request body id ', req.body.id)
+    res.send('successfully called delete');
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        if(err) throw err;
+        var dbo = db.db("<dbname>");
+        let collection = dbo.collection("todos");
+        collection.deleteOne({
+            "id": req.body.id,
+        })
+    })
+});
 
 app.put('/updateComplete', (req, res) => {
     let _id = req.body.properties.id;

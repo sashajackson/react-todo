@@ -5,6 +5,7 @@ import Input from './components/layout/input'
 import './App.css'
 import axios from 'axios'
 import Time from './components/layout/time'
+import Alert from './components/layout/alert'
 
 // let api = axios.create({
 //   baseUrl: 'https://react-todo-17.herokuapp.com',
@@ -73,6 +74,12 @@ class App extends Component {
 
     delTodo = (id) => {
       this.setState({tasks: [...this.state.tasks.filter(todo => todo.id !== id)]})
+      
+      axios
+        .post('/delete', { id: id})
+          .then((response) => {
+            console.log(response)
+          })
     }
 
     update = (id, complete) => {
@@ -111,6 +118,7 @@ class App extends Component {
   
     return (
       <div className="App">
+        <Alert />
         <Header />
         <Input log={this.log} task={this.state.tasks}/>
         <Time />
