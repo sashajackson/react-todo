@@ -149,6 +149,8 @@ class App extends Component {
               if(response.data[0].password === obj.password){
                 localStorage.setItem('isAuth', 'true');
                 this._history.push('/dashboard')
+              } else {
+                this._history.push('/');
               }
             }
           })

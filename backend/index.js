@@ -145,3 +145,7 @@ app.post('/signInApp', (req, res) => {
     })
 })
 
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+})
+
