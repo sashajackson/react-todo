@@ -6,6 +6,10 @@ import './App.css'
 import axios from 'axios'
 import Time from './components/layout/time'
 import Alert from './components/layout/alert'
+import SignIn from './components/layout/signIn'
+import { Router, Route } from 'react-router-dom'
+import Routes from '../src/routes/index'
+import history from '../src/services/history'
 
 // let api = axios.create({
 //   baseUrl: 'https://react-todo-17.herokuapp.com',
@@ -120,10 +124,23 @@ class App extends Component {
       <div className="App">
         <Alert />
         <Header />
-        <Input log={this.log} task={this.state.tasks}/>
-        <Time />
-        <Task task={this.state.tasks} markComplete={this.markComplete}
-        delTodo={this.delTodo} update={this.update} log={this.log}/>
+        {/* <Router exact path="/home" history={history}>
+          <Input log={this.log} task={this.state.tasks}/>
+          <Time />
+          <Task task={this.state.tasks} markComplete={this.markComplete}
+            delTodo={this.delTodo} update={this.update} log={this.log}/>
+        </Router> */}
+          <Router history={history}>
+            <Route exact path="/" >
+              <Input log={this.log} task={this.state.tasks}/>
+              <Time />
+              <Task task={this.state.tasks} markComplete={this.markComplete}
+                  delTodo={this.delTodo} update={this.update} log={this.log}/>
+            </Route>
+          </Router>
+          <Router history={history}>
+            <Routes />
+          </Router>
       </div>
     );
   }
