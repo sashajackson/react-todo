@@ -69,6 +69,10 @@ app.get('/signup', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
 
+app.get('/creategroup', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+})
+
 app.post('/signup', (req, res) => {
     console.log('hello from create user');
     let { u, e, p} = req.body;
