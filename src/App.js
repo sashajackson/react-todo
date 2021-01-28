@@ -37,7 +37,7 @@ class App extends Component {
           // { id: 10, task: "wash car"},
         ],
         isAuth: true,
-        user: {username: 'Planning with friends, for fun.'},
+        user: [{username: 'Planning with friends, for fun.'}],
 
       }
   }
@@ -203,7 +203,7 @@ class App extends Component {
                 .then(result => {
                     let data = [...this.state.user];
                     this.setState({
-                      user: result.data.user
+                      user: result.data
                     })
                   });
                   
@@ -222,8 +222,6 @@ class App extends Component {
   
     return (
       <div className="App">
-        <Alert user={this.state.user} />
-        <Header />
         
           <Router history={history}>
 
@@ -238,16 +236,20 @@ class App extends Component {
             </Route>
 
             <Route exact path="/signup">
+              <Header />
               <SUMaster addUser={this.addUser} />
             </Route>
-            <Route exact path="/signIn">
-            <SignIn submitSignIn={this.submitSignIn} /> 
-            </Route>
 
-            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard /> : <Redirect to="/signIn" /> )} >
+            <Route exact path="/signIn">
+              <Header />
+              <SignIn submitSignIn={this.submitSignIn} /> 
+            </Route>
+        
+            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard user={this.state.user} /> : <Redirect to="/signIn" /> )} >
             </Route>
 
             <Route exact path="/" >
+              <Header />
               <Input log={this.log} task={this.state.tasks}/>
               <Time />
               <Task task={this.state.tasks} markComplete={this.markComplete}
