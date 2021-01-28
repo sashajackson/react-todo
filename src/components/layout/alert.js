@@ -18,9 +18,10 @@ class Alert extends Component {
 
 const alertText = {
     textAlign: "center",
-    color: "ghostwhite",
-    background: "black",
-    borderRadius: "0"
+    color: "white",
+    background: "#4c4c4c",
+    borderRadius: "0",
+    marginBottom: "0",
 }
 
 export default Alert

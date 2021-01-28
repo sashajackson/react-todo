@@ -8,6 +8,7 @@ import Time from './components/layout/time'
 import Alert from './components/layout/alert'
 import SignIn from './components/layout/signIn'
 import SignUp from './components/layout/signup'
+import CreateGroup from './components/layout/createGroup'
 import SUMaster from './components/layout/signinmaster'
 import { Router, Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
 import Routes from '../src/routes/index'
@@ -231,6 +232,10 @@ class App extends Component {
             {/* <Route exact path="/signIn" render={() => this.isAuth() ? <Dashboard/> : <Redirect to={{pathname="/signIn"}}}>
             <SignIn task={this.state.tasks} submitSignIn={this.submitSignIn} /> 
             </Route> */}
+
+            <Route exact path="/creategroup">
+              <CreateGroup />
+            </Route>
 
             <Route exact path="/signup">
               <SUMaster addUser={this.addUser} />

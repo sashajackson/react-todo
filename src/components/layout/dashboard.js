@@ -1,22 +1,31 @@
 import React, { Component } from 'react'
+import {createBrowserHistory } from 'history'
 
 class Dashboard extends Component {
+_history = createBrowserHistory({forceRefresh: true});
 
+changePage = () => {
+    this._history.push("/creategroup")
+ }
 
 render(){
     return (
         <div className="container">
-            <div style={{paddingLeft: "20px"}}className="row">
+            <div style={parentRow1Style} className="row">
+
                 <div className="col-6">
-                    <p style={titleStyle}>Groups</p>
+                    <button style={notificationStyle2} type="button" className="btn" onClick={this.changePage}>
+                        <i style={createStyle} className="fas fa-plus-circle"></i> Create
+                    </button>
                 </div>
+
                 <div className="col-6">
                     <button style={notificationStyle} type="button" className="btn">
-                        New Tasks <span style={badgeStyle} className="badge bg-secondary">1</span>
+                        <span style={badgeStyle} className="badge">1</span> Alert
                     </button>
                 </div>
             </div>
-            <div className="row">
+            <div style={secondRowStyle} className="row">
                 <div className="col-4">
                     <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                     <p style={groupTitle}>house stuff</p>
@@ -30,10 +39,10 @@ render(){
                     <p style={groupTitle}>vacation</p>
                 </div>
             </div>
-            <div className="row">
-                <div style={{padding: 0}} className="col-12">
-                    <div style={{paddingTop: "20px"}} className="card">
-                    <p style={taskTitleStyle}>Task Activity</p>
+            <div style={{marginTop: "1em"}} className="row">
+                <div style={{}} className="col-12">
+                    <div style={cardStyle} className="card">
+                    <h5 className="card-title" style={taskTitleStyle}>Task Activity</h5>
                         <div className="card-body">
                             <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Lee reserved the Airbnb <span style={groupList}>for Atlanta Trip</span></h1>
                             <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Ashley washed the dishes <span style={groupList}>for Home Duties</span> </h1>
@@ -50,6 +59,31 @@ render(){
 
 }
 
+const parentRow1Style = {
+    // marginTop: "2em",
+    paddingTop: "1.5em",
+    borderTop: "1px solid #5f8fff",
+    // background: 'linear-gradient(45deg, #ffcf5f, #5f8fff)',
+    background: "#92b3ff",
+}
+
+const secondRowStyle = {
+    paddingTop: "1em",
+    paddingBottom: "10px",
+    background: "#7f5fff",
+    background: "white",
+    boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+}
+const cardStyle = {
+    paddingTop: "20px",
+    background: "linear-gradient(white, #7f5fff)",
+    background: "white",
+}
+const createStyle = {
+    fontSize: "20px",
+    color: "green",
+}
+
 const titleStyle= {
     fontFamily: 'Trispace',
     fontSize: '22px',
@@ -60,18 +94,26 @@ const taskTitleStyle = {
     fontSize: '22px',
     marginTop: "1em",
     paddingLeft: "20px",
-    textAlign: "center"
+    textAlign: "center",
+    color: "#7f5fff",
     
 }
 const notificationStyle = {
-    marginTop: "2em", 
-    float: "right", 
+    float: "left",
+    marginBottom: "1em",
+    background: "white",
+    fontFamily: 'Trispace',
+}
+const notificationStyle2 = {
+    float: "right",
+    marginBottom: "1em",
     background: "white",
     fontFamily: 'Trispace',
 }
 const groupTitle = {
     textAlign: "center",
     marginTop: "10px",
+    marginBottom: "0",
 }
 const imgStyle = {
     borderRadius: '30px',
@@ -80,7 +122,8 @@ const imgStyle = {
 }
 
 const badgeStyle = {
-    borderRadius: "30px"
+    borderRadius: "30px",
+    background: "red",
 }
 
 const taskTrackStyle = {

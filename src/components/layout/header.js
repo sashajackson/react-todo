@@ -56,8 +56,9 @@ const headerStyle =  {
     color: 'ghostwhite',
     padding: '10px',
     textAlign: 'center',
-    margin: '13px',
-    borderRadius: '40px',
+    // margin: '13px',
+    // borderRadius: '40px',
+    background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
 
@@ -68,15 +69,17 @@ const ulStyle = {
 
 const menuIcon = {
     fontSize: '30px',
-    color: 'black',
+    color: 'ghostwhite',
 }
 
 const brandStyle = {
-    color: '#4c4c4c',
-    background: '#f4f4f4',
+    color: 'ghostwhite',
+    background: '#4c4c4c',
+    background: 'transparent',
     borderRadius: '20em',
     padding: '10px',
-    fontFamily: 'Trispace'
+    fontFamily: 'Trispace',
+    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 }
 
 const aStyle = {
