@@ -7,6 +7,8 @@ import axios from 'axios'
 import Time from './components/layout/time'
 import Alert from './components/layout/alert'
 import SignIn from './components/layout/signIn'
+import SignUp from './components/layout/signup'
+import SUMaster from './components/layout/signinmaster'
 import { Router, Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
 import Routes from '../src/routes/index'
 import history from '../src/services/history'
@@ -24,6 +26,7 @@ import {createBrowserHistory } from 'history'
 class App extends Component {
   _isMounted = false;
   _history = createBrowserHistory({forceRefresh: true});
+  _user;
 
   constructor(){
     super();
@@ -33,6 +36,8 @@ class App extends Component {
           // { id: 10, task: "wash car"},
         ],
         isAuth: true,
+        user: {username: 'Planning with friends, for fun.'},
+
       }
   }
 
@@ -58,6 +63,12 @@ class App extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
+
+  // alert = () => {
+  //     this.setState({
+  //       user: { username: 'Planning with friends, for fun.'}
+  //     })
+  // }
     
  
     markComplete = (id, completed) => {
@@ -152,6 +163,10 @@ class App extends Component {
             if(response.data.length > 0){
               if(response.data[0].password === obj.password){
                 localStorage.setItem('isAuth', 'true');
+                // this.setState({
+                //   user: response.data[0]
+                // })
+                this.user = response.data[0].username;
                 this._history.push('/dashboard')
               } else {
                 this._history.push('/');
@@ -170,13 +185,43 @@ class App extends Component {
     return false;
   }
 
+  addUser = () => {
+    let email = document.getElementById('saveEmail').value;
+    let password = document.getElementById('savePassword').value;
+    let username = document.getElementById('saveUsername').value;
+    console.log('assigned user values..');
+
+    if(email && password && username){
+        let obj = {
+            u: username,
+            e: email,
+            p: password,
+        }
+        axios
+            .post('/signup', obj)
+                .then(result => {
+                    let data = [...this.state.user];
+                    this.setState({
+                      user: result.data.user
+                    })
+                  });
+                  
+        localStorage.setItem('isAuth', 'true');
+        this._history.push('/dashboard')
+    } else {
+        console.log('must enter username, email and password');
+    }
+
+    console.log('user added..');
+}
+
     
     render(){
 
   
     return (
       <div className="App">
-        <Alert />
+        <Alert user={this.state.user} />
         <Header />
         
           <Router history={history}>
@@ -187,6 +232,9 @@ class App extends Component {
             <SignIn task={this.state.tasks} submitSignIn={this.submitSignIn} /> 
             </Route> */}
 
+            <Route exact path="/signup">
+              <SUMaster addUser={this.addUser} />
+            </Route>
             <Route exact path="/signIn">
             <SignIn submitSignIn={this.submitSignIn} /> 
             </Route>

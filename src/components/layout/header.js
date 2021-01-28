@@ -9,8 +9,8 @@ class Header extends Component {
   isAuth = () => {
       if(localStorage.getItem('isAuth')){
         console.log('page should be changed now');
-          this.display = 'Dashboard';
           this._history.push('/dashboard');
+          this.display = 'Dashboard';
       } else {
         this._history.push('/signIn');
         this.display = 'Sign In'
@@ -23,7 +23,7 @@ class Header extends Component {
 
       return (
         <nav className="navbar" style={headerStyle}>
-        <div className="container-fluid">
+        <div style={containerStyle} className="container-fluid">
           <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
@@ -48,12 +48,16 @@ class Header extends Component {
     }
 }
 
+const containerStyle = {
+  paddingLeft: '0'
+}
+
 const headerStyle =  {
     color: 'ghostwhite',
     padding: '10px',
     textAlign: 'center',
     margin: '13px',
-    borderRadius: '10px',
+    borderRadius: '40px',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
 
@@ -68,8 +72,8 @@ const menuIcon = {
 }
 
 const brandStyle = {
-    color: 'ghostwhite',
-    background: 'black',
+    color: '#4c4c4c',
+    background: '#f4f4f4',
     borderRadius: '20em',
     padding: '10px',
     fontFamily: 'Trispace'

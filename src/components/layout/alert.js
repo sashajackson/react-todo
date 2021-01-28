@@ -8,7 +8,7 @@ class Alert extends Component {
             <div className="row">
                 <div className="col-12">
                     <div style={alertText} className="alert" role="alert">
-                        Planning with friends, for fun.
+                        {this.props.user.username}
                     </div>
                 </div>
             </div>
@@ -20,6 +20,7 @@ const alertText = {
     textAlign: "center",
     color: "ghostwhite",
     background: "black",
+    borderRadius: "0"
 }
 
 export default Alert

@@ -7,13 +7,15 @@ const router = express.Router();
 const path = require('path');
 const publicPath = path.join(__dirname, '..', 'build');
 require('./models/model');
+require('./models/user');
 const mongoose = require('mongoose');
 const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
+const User = mongoose.model("User");
 const MongoClient = require('mongodb').MongoClient;
 let id = null;
 const whitelist = ['http://localhost:3000','http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
-
+const _id = null;
 const corsOptions = {
     origin: whitelist,
     credentials: true,
@@ -63,6 +65,21 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
 
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(publicPath, 'index.html'));
+})
+
+app.post('/signup', (req, res) => {
+    console.log('hello from create user');
+    let { u, e, p} = req.body;
+    const user = new User();
+    user.username = u;
+    user.email = e;
+    user.password = p;
+    user.save().then(result => {
+        res.json({user: result})
+    }).catch(err => console.log(err));
+})
 
 app.post('/postData', async (req, res) => {
     await getId();
@@ -139,6 +156,7 @@ app.post('/signInApp', (req, res) => {
         cursor.find({email: req.body.email})
             .toArray()
                 .then(result => {
+                    console.log('this is returning post result ', result)
                     res.json(result);
                     db.close();
         })

@@ -19,20 +19,21 @@ render(){
             <div className="row">
                 <div className="col-4">
                     <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                    <p style={groupTitle}>Home Duties</p>
+                    <p style={groupTitle}>house stuff</p>
                 </div>
                 <div className="col-4">
                     <img style={imgStyle} alt='' src="https://images.pexels.com/photos/5796567/pexels-photo-5796567.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                    <p style={groupTitle}>Atlanta Trip</p>
+                    <p style={groupTitle}>work</p>
                 </div>
                 <div className="col-4">
-                    <img style={imgStyle} alt='' src="https://resizeimage.net/mypic/wRJ20KHTXpaURj7G/LzXTC/pexels-marlene-leppa--nen-1426.png" />
-                    <p style={groupTitle}>Saturday Night</p>
+                    <img style={imgStyle} alt='' src="https://images.pexels.com/photos/1154638/pexels-photo-1154638.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                    <p style={groupTitle}>vacation</p>
                 </div>
             </div>
             <div className="row">
                 <div style={{padding: 0}} className="col-12">
-                    <div className="card">
+                    <div style={{paddingTop: "20px"}} className="card">
+                    <p style={taskTitleStyle}>Task Activity</p>
                         <div className="card-body">
                             <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Lee reserved the Airbnb <span style={groupList}>for Atlanta Trip</span></h1>
                             <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Ashley washed the dishes <span style={groupList}>for Home Duties</span> </h1>
@@ -49,10 +50,18 @@ render(){
 
 }
 
-const titleStyle = {
+const titleStyle= {
     fontFamily: 'Trispace',
     fontSize: '22px',
     marginTop: "2em",
+}
+const taskTitleStyle = {
+    fontFamily: 'Trispace',
+    fontSize: '22px',
+    marginTop: "1em",
+    paddingLeft: "20px",
+    textAlign: "center"
+    
 }
 const notificationStyle = {
     marginTop: "2em", 

@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
+import {createBrowserHistory } from 'history'
 
 class SignIn extends Component {
+    _history = createBrowserHistory({forceRefresh: true});
+
+    redirect = () => {
+        this._history.push('/signup');
+    }
 
     render(){
         return (
@@ -12,6 +18,7 @@ class SignIn extends Component {
                         <input style={inputStyle} type="text" id="email" name="email" placeholder="enter email"></input>
                         <input style={inputStyle} type="text" id="password" name="password" placeholder="enter password"></input>
                         <button style={btnStyle} className="btn" onClick={this.props.submitSignIn}>Submit</button>
+                        <p>or <a onClick={this.redirect}>Sign Up</a></p>
 
                     </div>
                 </div>
