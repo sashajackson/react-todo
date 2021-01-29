@@ -8,7 +8,7 @@ class Alert extends Component {
             <div className="row">
                 <div className="col-12">
                     <div style={alertText} className="alert" role="alert">
-                        {this.props.user.username}
+                        Planning with friends, for fun.
                     </div>
                 </div>
             </div>

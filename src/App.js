@@ -203,12 +203,15 @@ class App extends Component {
                 .then(result => {
                     let data = [...this.state.user];
                     this.setState({
-                      user: result.data
+                      user: [ result.data.user ]
                     })
+
+                    console.log('reslt ', result.data)
+                    console.log('state ', this.state)
+                    localStorage.setItem('isAuth', 'true');
+                    this._history.push('/dashboard')
                   });
                   
-        localStorage.setItem('isAuth', 'true');
-        this._history.push('/dashboard')
     } else {
         console.log('must enter username, email and password');
     }
@@ -245,10 +248,11 @@ class App extends Component {
               <SignIn submitSignIn={this.submitSignIn} /> 
             </Route>
         
-            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard user={this.state.user} /> : <Redirect to="/signIn" /> )} >
+            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard user={this.state.user[0]} /> : <Redirect to="/signIn" /> )} >
             </Route>
 
             <Route exact path="/" >
+              <Alert />
               <Header />
               <Input log={this.log} task={this.state.tasks}/>
               <Time />

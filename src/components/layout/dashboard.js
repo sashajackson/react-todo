@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {createBrowserHistory } from 'history'
 
+
 class Dashboard extends Component {
 _history = createBrowserHistory({forceRefresh: true});
 
@@ -9,8 +10,31 @@ changePage = () => {
  }
 
 render(){
+    
     return (
+        <div>
+            <div style={headerRow} className="row">
+                <div className="col-6">
+                    <i style={iStyle} className="fab fa-twitter"></i> 
+                    <i style={iStyle1} className="fab fa-facebook"></i> 
+                    <i style={iStyle1} className="fas fa-envelope"></i>
+                </div>
+                <div style={liFloatRight} className="col-6">
+                    8:34 PM
+                </div>
+            </div>
+
         <div className="container">
+
+            {/* <div className="row">
+                <div className="col-12 p-0">
+                <ul className="list-group list-group-horizontal-sm">
+                    <li style={liFloatRight} className="list-group-item pull-left"><i style={iStyle} className="fab fa-twitter"></i> <i style={iStyle1} className="fab fa-facebook"></i> <i style={iStyle1} className="fas fa-envelope"></i></li>
+                    <li style={liFloatLeft} className="list-group-item pull-right">Leave feedback and suggestions!</li>
+                </ul>                    
+                </div>
+            </div> */}
+
             <div style={parentRow1Style} className="row">
 
                 <div className="col-6">
@@ -53,10 +77,41 @@ render(){
                 </div>
             </div>
         </div>
+        </div>
         
     )
 }
 
+}
+
+const headerRow = {
+    padding: "20px"
+}
+
+const liFloatRight = {
+    textAlign: "right",
+    fontFamily: 'Trispace',
+    fontSize: '20px',
+}
+const liFloatLeft = {
+    float: "left",
+    textAlign: "center"
+}
+
+const iStyle = {
+    fontSize: "20px"
+}
+const iStyle1 = {
+    fontSize: "20px",
+    marginLeft: "30px"
+}
+
+const alertText = {
+    textAlign: "center",
+    color: "white",
+    background: "#4c4c4c",
+    borderRadius: "0",
+    marginBottom: "0",
 }
 
 const parentRow1Style = {
