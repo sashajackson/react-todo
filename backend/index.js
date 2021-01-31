@@ -8,10 +8,13 @@ const path = require('path');
 const publicPath = path.join(__dirname, '..', 'build');
 require('./models/model');
 require('./models/user');
+require('./models/group')
 const mongoose = require('mongoose');
+const {ObjectId} = mongoose.Types.ObjectId;
 const {MONGOURI} = require('./keys');
 const Todo = mongoose.model("Todo");
 const User = mongoose.model("User");
+const Group = mongoose.model("Group");
 const MongoClient = require('mongodb').MongoClient;
 let id = null;
 const whitelist = ['http://localhost:3000','http://localhost:3001', 'http://localhost:4000', 'https://react-todo-17.herokuapp.com']; // list of allow domain
@@ -73,8 +76,45 @@ app.get('/creategroup', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
 
+app.post('/createGroup', (req, res) => {
+    console.log('hello from create group!');
+
+    let {createdBy, title, oneTask, twoTask, threeTask, storageId} = req.body;
+    const group = new Group();
+    // console.log('this is groupId ');
+    group.createdBy = storageId;
+    group.title = title;
+    group.groupTask = [
+        {id: storageId, task: oneTask, completed: false},
+        {id: storageId, task: twoTask, completed: false},
+        {id: storageId, task: threeTask, completed: false},
+    ];
+
+    // console.log('successfully created object');
+    group.save().then(result => {
+        res.json({groups: result})
+    }).catch(err => console.log(err))
+    // console.log('group saved');
+});
+
+app.post('/mygroups', (req, res) => {
+    // console.log('hello from my groups!')
+    let { id } = req.body;
+    
+    MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        var dbo = db.db('<dbname>');
+        let cursor = dbo.collection("groups");
+        cursor.find({ createdBy: ObjectId(`${id}`) }).toArray().then(result => {
+            // console.log('this is my groups result ', result);
+            res.json(result);
+            db.close();
+        })
+    })
+})
+
 app.post('/signup', (req, res) => {
-    console.log('hello from create user');
+
     let { u, e, p} = req.body;
     const user = new User();
     user.username = u;

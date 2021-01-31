@@ -3,17 +3,18 @@ const {ObjectId} = mongoose.Schema.Types;
 const Schema = mongoose.Schema;
 
 let GroupSchema = new Schema({
-    id: {
+ 
+    createdBy: {
         type: ObjectId
     },
-    email: {
+    title: {
         type: String
     },
-    password: {
-        type: String
+    members: {
+        type: Array
     },
-    username: {
-        type: String
+    groupTask: {
+        type: Array
     }
 });
 

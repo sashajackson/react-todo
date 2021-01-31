@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {createBrowserHistory } from 'history'
+import GroupPage from './groupPage'
 
 
 class Dashboard extends Component {
@@ -12,9 +13,36 @@ changePage = () => {
 render(){
     
     return (
-        <div>
+        <div className="">
+            <div className="row">
+                <div className="col-12">
+                    <nav className="navbar" style={headerStyle}>
+                        <div style={containerStyle} className="container-fluid">
+                            <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarNav">
+                                <ul style={ulStyle} className="navbar-nav">
+                                    <li className="nav-item">
+                                        <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a style={aStyle} className="nav-link" onClick={this.isAuth} data-bs-toggle="modal" data-bs-target="#exampleModal"><span style={ulIcon}><i className="fad fa-search"></i></span> Find friends</a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a style={aStyle} className="nav-link" href="/groups"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
+                                    </li>
+                                </ul>
+                            </div>
+      
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
             <div style={headerRow} className="row">
-                <div className="col-6">
+                <div className="col-6 d-flex justify-content-center align-items-center">
                     <i style={iStyle} className="fab fa-twitter"></i> 
                     <i style={iStyle1} className="fab fa-facebook"></i> 
                     <i style={iStyle1} className="fas fa-envelope"></i>
@@ -25,15 +53,6 @@ render(){
             </div>
 
         <div className="container">
-
-            {/* <div className="row">
-                <div className="col-12 p-0">
-                <ul className="list-group list-group-horizontal-sm">
-                    <li style={liFloatRight} className="list-group-item pull-left"><i style={iStyle} className="fab fa-twitter"></i> <i style={iStyle1} className="fab fa-facebook"></i> <i style={iStyle1} className="fas fa-envelope"></i></li>
-                    <li style={liFloatLeft} className="list-group-item pull-right">Leave feedback and suggestions!</li>
-                </ul>                    
-                </div>
-            </div> */}
 
             <div style={parentRow1Style} className="row">
 
@@ -77,6 +96,25 @@ render(){
                 </div>
             </div>
         </div>
+        <GroupPage />
+
+        {/* modal */}
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Find friends</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <form className="d-flex">
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button style={modalStyle} className="btn" type="submit">Search</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
         
     )
@@ -85,7 +123,9 @@ render(){
 }
 
 const headerRow = {
-    padding: "20px"
+    padding: "20px",
+    background: "#f4f4f4",
+    boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
 }
 
 const liFloatRight = {
@@ -115,19 +155,18 @@ const alertText = {
 }
 
 const parentRow1Style = {
-    // marginTop: "2em",
     paddingTop: "1.5em",
-    borderTop: "1px solid #5f8fff",
-    // background: 'linear-gradient(45deg, #ffcf5f, #5f8fff)',
-    background: "#92b3ff",
+    background: "white",
 }
 
 const secondRowStyle = {
     paddingTop: "1em",
     paddingBottom: "10px",
-    background: "#7f5fff",
     background: "white",
-    boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+    // background: "#efffaf",
+    // boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+    boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+    
 }
 const cardStyle = {
     paddingTop: "20px",
@@ -156,14 +195,16 @@ const taskTitleStyle = {
 const notificationStyle = {
     float: "left",
     marginBottom: "1em",
-    background: "white",
     fontFamily: 'Trispace',
+    background: "white",
+    boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
 }
 const notificationStyle2 = {
     float: "right",
     marginBottom: "1em",
-    background: "white",
     fontFamily: 'Trispace',
+    background: "white",
+    boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
 }
 const groupTitle = {
     textAlign: "center",
@@ -195,5 +236,52 @@ const groupList = {
     fontStyle: "italic",
     fontWeight: "100"
 }
+
+//navbar style
+const containerStyle = {
+    paddingLeft: '0'
+  }
+  
+  const headerStyle =  {
+      color: 'ghostwhite',
+      padding: '1em 10px 1em 10px',
+      textAlign: 'center',
+      background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
+      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  };
+  
+  const ulStyle = {
+      float: 'left',
+      color: 'ghostwhite !important'
+  }
+  
+  const menuIcon = {
+      fontSize: '30px',
+      color: 'ghostwhite',
+  }
+  
+  const brandStyle = {
+      color: 'ghostwhite',
+      background: '#4c4c4c',
+      background: 'transparent',
+      borderRadius: '20em',
+      padding: '10px',
+      fontFamily: 'Trispace',
+      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+  }
+  
+  const aStyle = {
+    textAlign: "left",
+    color: '#f4f4f4',
+    fontFamily: 'Trispace',
+  }
+  
+  const ulIcon = {
+    color: '#f4f4f4',
+  }
+
+  const modalStyle = {
+      border: "1px solid #7f5fff"
+  }
 
 export default Dashboard

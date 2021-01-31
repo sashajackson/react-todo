@@ -10,6 +10,7 @@ import SignIn from './components/layout/signIn'
 import SignUp from './components/layout/signup'
 import CreateGroup from './components/layout/createGroup'
 import SUMaster from './components/layout/signinmaster'
+import GroupPage from './components/layout/groupPage'
 import { Router, Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
 import Routes from '../src/routes/index'
 import history from '../src/services/history'
@@ -209,6 +210,7 @@ class App extends Component {
                     console.log('reslt ', result.data)
                     console.log('state ', this.state)
                     localStorage.setItem('isAuth', 'true');
+                    localStorage.setItem('fx', this.state.user[0]._id);
                     this._history.push('/dashboard')
                   });
                   
@@ -219,6 +221,42 @@ class App extends Component {
     console.log('user added..');
 }
 
+createGroup = () => {
+  let task1 = document.getElementById("task1").value;
+  let task2 = document.getElementById("task2").value;
+  let task3 = document.getElementById("task3").value;
+  let title = document.getElementById("groupTitle").value;
+
+  if(task1 && task2 && task3){
+    console.log(this.state.user);
+
+    let obj = {
+      title: title,
+      oneTask: task1,
+      twoTask: task2,
+      threeTask: task3,
+      storageId: localStorage.getItem('fx'),
+    }
+
+    console.log('successfully created object');
+    axios
+      .post('/createGroup', obj)
+        .then(result => {
+          console.log('sucessfully saved')
+          console.log(result.data)
+          this._history.push('/dashboard');
+        })
+
+
+} else {
+  console.log('must enter tasks')
+}
+
+
+
+
+
+}
     
     render(){
 
@@ -235,7 +273,7 @@ class App extends Component {
             </Route> */}
 
             <Route exact path="/creategroup">
-              <CreateGroup />
+              <CreateGroup createGroup={this.createGroup} />
             </Route>
 
             <Route exact path="/signup">
@@ -248,7 +286,14 @@ class App extends Component {
               <SignIn submitSignIn={this.submitSignIn} /> 
             </Route>
         
-            <Route exact path="/dashboard" render={() => (this.isAuth() ? <Dashboard user={this.state.user[0]} /> : <Redirect to="/signIn" /> )} >
+            <Route exact path="/dashboard" render={() => (
+              this.isAuth() ? <Dashboard user={this.state.user[0]} /> : <Redirect to="/signIn" /> 
+              )} >
+            </Route>
+
+            <Route exact path="/groups" render={() => (
+              this.isAuth() ? <GroupPage /> : <Redirect to="/signIn" />
+              )}>
             </Route>
 
             <Route exact path="/" >

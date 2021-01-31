@@ -16,7 +16,7 @@ class SignIn extends Component {
                     <div style={cardStyle} className="card">
                         <h5 style={{textAlign: "center"}} className="card-title">Sign In Console</h5>
                         <input style={inputStyle} type="text" id="email" name="email" placeholder="enter email"></input>
-                        <input style={inputStyle} type="text" id="password" name="password" placeholder="enter password"></input>
+                        <input style={inputStyle} type="password" id="password" name="password" placeholder="enter password"></input>
                         <button style={btnStyle} className="btn" onClick={this.props.submitSignIn}>Submit</button>
                         <p>or <a onClick={this.redirect}>Sign Up</a></p>
 
