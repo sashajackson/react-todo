@@ -6,6 +6,13 @@ import GroupPage from './groupPage'
 class Dashboard extends Component {
 _history = createBrowserHistory({forceRefresh: true});
 
+constructor(){
+    super()
+    this.state = {
+        groups: []
+    }
+}
+
 changePage = () => {
     this._history.push("/creategroup")
  }

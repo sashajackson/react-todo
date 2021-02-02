@@ -107,11 +107,12 @@ class GroupPage extends Component {
                                         )
                                     })}
 
-                                        
+                                       
 
                                         {group.members.map((user, ind) => {
                                             if(user.username){
                                                 return (
+                                                    
                                                     <h6 key={ind}>{user.username}</h6>
 
                                                 )
