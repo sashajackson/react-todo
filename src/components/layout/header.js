@@ -1,6 +1,5 @@
 import React, {Component} from 'react' 
 import {createBrowserHistory } from 'history'
-import { Redirect } from 'react-router-dom'
 import './header.css'
 
 class Header extends Component {
@@ -56,8 +55,6 @@ const headerStyle =  {
     color: 'ghostwhite',
     padding: '10px',
     textAlign: 'center',
-    // margin: '13px',
-    // borderRadius: '40px',
     background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };

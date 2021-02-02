@@ -170,6 +170,7 @@ app.post('/delete', (req, res) => {
         collection.deleteOne({
             "id": req.body.id,
         })
+        db.close();
     })
 });
 
@@ -184,6 +185,7 @@ app.put('/updateComplete', (req, res) => {
             id: id,
             completed: _complete
         })
+        db.close();
     })
 });
 

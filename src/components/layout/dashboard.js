@@ -140,10 +140,6 @@ const liFloatRight = {
     fontFamily: 'Trispace',
     fontSize: '20px',
 }
-const liFloatLeft = {
-    float: "left",
-    textAlign: "center"
-}
 
 const iStyle = {
     fontSize: "20px"
@@ -153,13 +149,6 @@ const iStyle1 = {
     marginLeft: "30px"
 }
 
-const alertText = {
-    textAlign: "center",
-    color: "white",
-    background: "#4c4c4c",
-    borderRadius: "0",
-    marginBottom: "0",
-}
 
 const parentRow1Style = {
     paddingTop: "1.5em",
@@ -177,7 +166,6 @@ const secondRowStyle = {
 }
 const cardStyle = {
     paddingTop: "20px",
-    background: "linear-gradient(white, #7f5fff)",
     background: "white",
 }
 const createStyle = {
@@ -185,11 +173,6 @@ const createStyle = {
     color: "green",
 }
 
-const titleStyle= {
-    fontFamily: 'Trispace',
-    fontSize: '22px',
-    marginTop: "2em",
-}
 const taskTitleStyle = {
     fontFamily: 'Trispace',
     fontSize: '22px',
@@ -199,6 +182,7 @@ const taskTitleStyle = {
     color: "#7f5fff",
     
 }
+
 const notificationStyle = {
     float: "left",
     marginBottom: "1em",
@@ -269,7 +253,6 @@ const containerStyle = {
   
   const brandStyle = {
       color: 'ghostwhite',
-      background: '#4c4c4c',
       background: 'transparent',
       borderRadius: '20em',
       padding: '10px',

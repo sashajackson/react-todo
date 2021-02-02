@@ -106,7 +106,6 @@ const headerStyle =  {
       color: 'ghostwhite',
       padding: '1em 10px 1em 10px',
       textAlign: 'center',
-      background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
       background: '#7f5fff',
       boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   };
@@ -123,7 +122,6 @@ const menuIcon = {
   
 const brandStyle = {
       color: 'ghostwhite',
-      background: '#4c4c4c',
       background: 'transparent',
       borderRadius: '20em',
       padding: '10px',
@@ -154,7 +152,6 @@ const liFloatRight = {
 }
 const headerRow = {
     padding: "20px",
-    background: "#efffaf",
     background: "white",
     boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
 } 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { CreateBrowserHistory } from 'history'
 
 class ProtectedNav extends Component {
 
@@ -58,7 +57,6 @@ const containerStyle = {
       color: 'ghostwhite',
       padding: '1em 10px 1em 10px',
       textAlign: 'center',
-      background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
       background: '#7f5fff',
       boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
   };
@@ -75,7 +73,6 @@ const containerStyle = {
   
   const brandStyle = {
       color: 'ghostwhite',
-      background: '#4c4c4c',
       background: 'transparent',
       borderRadius: '20em',
       padding: '10px',
@@ -110,6 +107,10 @@ const liFloatRight = {
     textAlign: "right",
     fontFamily: 'Trispace',
     fontSize: '20px',
+}
+
+const test = {
+    
 }
 
 export default ProtectedNav

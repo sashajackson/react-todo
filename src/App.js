@@ -7,12 +7,10 @@ import axios from 'axios'
 import Time from './components/layout/time'
 import Alert from './components/layout/alert'
 import SignIn from './components/layout/signIn'
-import SignUp from './components/layout/signup'
 import CreateGroup from './components/layout/createGroup'
 import SUMaster from './components/layout/signinmaster'
 import GroupPage from './components/layout/groupPage'
-import { Router, Route, Redirect, Switch, BrowserRouter } from 'react-router-dom'
-import Routes from '../src/routes/index'
+import { Router, Route, Redirect, Switch } from 'react-router-dom'
 import history from '../src/services/history'
 import Dashboard from './components/layout/dashboard'
 import {createBrowserHistory } from 'history'
@@ -165,6 +163,7 @@ class App extends Component {
             if(response.data.length > 0){
               if(response.data[0].password === obj.password){
                 localStorage.setItem('isAuth', 'true');
+                localStorage.setItem('fx', response.data[0]._id);
                 // this.setState({
                 //   user: response.data[0]
                 // })
@@ -202,7 +201,6 @@ class App extends Component {
         axios
             .post('/signup', obj)
                 .then(result => {
-                    let data = [...this.state.user];
                     this.setState({
                       user: [ result.data.user ]
                     })

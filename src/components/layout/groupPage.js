@@ -1,6 +1,4 @@
 import React , { Component } from 'react'
-import { CreateBrowserHistory } from 'history'
-import ProtectedNav from './protectedNav'
 import axios from 'axios'
 
 class GroupPage extends Component {
@@ -146,7 +144,6 @@ class GroupPage extends Component {
 }
 
 const cardHeader = {
-    background: "linear-gradient(to right, #7f5fff, #f4f4f4)",
     background: "#7f5fff",
     color: "white",
     fontSize: "20px",

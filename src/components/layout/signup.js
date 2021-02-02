@@ -1,32 +1,10 @@
 import React, {Component} from 'react'
 import {createBrowserHistory } from 'history'
-import axios from 'axios'
+
 
 class SignUp extends Component {
     _history = createBrowserHistory({forceRefresh: true});
 
-    // addUser = () => {
-    //     let email = document.getElementById('saveEmail').value;
-    //     let password = document.getElementById('savePassword').value;
-    //     let username = document.getElementById('saveUsername').value;
-    //     console.log(username);
-
-    //     if(email && password && username){
-    //         let obj = {
-    //             u: username,
-    //             e: email,
-    //             p: password,
-    //         }
-    //         axios
-    //             .post('/signup', obj)
-    //                 .then(result => {
-    //                     localStorage.setItem('isAuth', 'true');
-    //                     this._history.push('/dashboard')
-    //                 });
-    //     } else {
-    //         console.log('must enter username, email and password');
-    //     }
-    // }
 
     render(){
         return (
