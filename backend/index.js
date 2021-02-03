@@ -189,6 +189,34 @@ app.put('/updateComplete', (req, res) => {
     })
 });
 
+app.put('/updateTask', async (req, res) => {
+    let _id = req.body.id;
+    let _task = req.body.task;
+    let _index = req.body.index;
+    console.log(req.body);
+
+    await MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        let dbo = db.db('<dbname>');
+        let cursor = dbo.collection('groups');
+        // cursor.find({"_id": ObjectId(`${_id}`)}).forEach(value => {
+        //     if(value.groupTask){
+        //         value.groupTask.forEach((property, i) => {
+        //             if(property.task === _task){
+        //                 property.completed = !property.completed;
+        //                 console.log('bool ', property.completed);
+        //                 res.send(property);
+        //             }
+        //         })
+        //     }
+       
+        //     db.close();
+        // })
+
+        cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$set: {[`groupTask.${_index}.completed`] : true}});
+    })
+})
+
 app.get('/signIn', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 });

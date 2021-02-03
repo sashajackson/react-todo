@@ -17,19 +17,30 @@ changePage = () => {
     this._history.push("/creategroup")
  }
 
+ signOut = () => {
+     localStorage.removeItem('isAuth');
+     localStorage.removeItem('fx');
+ }
+
 render(){
     
     return (
         <div className="">
             <div className="row">
                 <div className="col-12">
-                    <nav className="navbar" style={headerStyle}>
+                    <nav className="navbar fixed-top" style={headerStyle}>
                         <div style={containerStyle} className="container-fluid">
                             <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
-                            </button>
-                            <div className="collapse navbar-collapse" id="navbarNav">
+                            </button> */}
+                            <ul className="navbar-nav d-flex flex-row">
+                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li> */}
+                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fas fa-random"></i></li> */}
+                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li> */}
+                                <li style={userStyle} className="nav-item"><i className="fas fa-user-circle"></i></li>
+                            </ul>
+                            {/* <div className="collapse navbar-collapse" id="navbarNav">
                                 <ul style={ulStyle} className="navbar-nav">
                                     <li className="nav-item">
                                         <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
@@ -40,15 +51,18 @@ render(){
                                     <li className="nav-item">
                                         <a style={aStyle} className="nav-link" href="/groups"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
                                     </li>
+                                    <li className="nav-item">
+                                        <a style={aStyle} onClick={this.signOut} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span> Logout</a>
+                                    </li>
                                 </ul>
-                            </div>
+                            </div> */}
       
                         </div>
                     </nav>
                 </div>
             </div>
 
-            <div style={headerRow} className="row">
+            {/* <div style={headerRow} className="row">
                 <div className="col-6 d-flex justify-content-center align-items-center">
                     <i style={iStyle} className="fab fa-twitter"></i> 
                     <i style={iStyle1} className="fab fa-facebook"></i> 
@@ -57,11 +71,11 @@ render(){
                 <div style={liFloatRight} className="col-6">
                     8:34 PM
                 </div>
-            </div>
+            </div> */}
 
         <div className="container">
 
-            <div style={parentRow1Style} className="row">
+            {/* <div style={parentRow1Style} className="row">
 
                 <div className="col-6">
                     <button style={notificationStyle2} type="button" className="btn" onClick={this.changePage}>
@@ -74,8 +88,8 @@ render(){
                         <span style={badgeStyle} className="badge">1</span> Alert
                     </button>
                 </div>
-            </div>
-            <div style={secondRowStyle} className="row">
+            </div> */}
+            <div style={secondRowStyle} className="row sticky-top">
                 <div className="col-4">
                     <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                     <p style={groupTitle}>house stuff</p>
@@ -89,7 +103,7 @@ render(){
                     <p style={groupTitle}>vacation</p>
                 </div>
             </div>
-            <div style={{marginTop: "1em"}} className="row">
+            {/* <div style={{marginTop: "1em"}} className="row">
                 <div style={{}} className="col-12">
                     <div style={cardStyle} className="card">
                     <h5 className="card-title" style={taskTitleStyle}>Task Activity</h5>
@@ -101,9 +115,27 @@ render(){
                         </div>
                     </div>
                 </div>
+            </div> */}
+            <GroupPage />
+            <div style={parentRow1Style} className="row fixed-bottom">
+
+                <div className="col-12">
+                    <nav className="navbar">
+                    <ul style={{marginLeft:"60px"}} className="navbar-nav d-flex flex-row">
+
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li>
+                    <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
+                        <i style={createStyle} className="fal fa-plus-circle"></i> 
+                    </li>
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
+
+                    </ul>
+                    </nav>
+                </div>
             </div>
         </div>
-        <GroupPage />
+        {/* <GroupPage /> */}
 
         {/* modal */}
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,7 +163,7 @@ render(){
 
 const headerRow = {
     padding: "20px",
-    background: "#f4f4f4",
+    background: "white",
     boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
 }
 
@@ -151,8 +183,8 @@ const iStyle1 = {
 
 
 const parentRow1Style = {
-    paddingTop: "1.5em",
     background: "white",
+    border: "1px solid #f4f4f4",
 }
 
 const secondRowStyle = {
@@ -169,8 +201,8 @@ const cardStyle = {
     background: "white",
 }
 const createStyle = {
-    fontSize: "20px",
-    color: "green",
+    // fontSize: "30px",
+    color: "#7f5fff",
 }
 
 const taskTitleStyle = {
@@ -188,14 +220,13 @@ const notificationStyle = {
     marginBottom: "1em",
     fontFamily: 'Trispace',
     background: "white",
-    boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
+    // boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
 }
 const notificationStyle2 = {
-    float: "right",
     marginBottom: "1em",
     fontFamily: 'Trispace',
     background: "white",
-    boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
+    // boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
 }
 const groupTitle = {
     textAlign: "center",
@@ -234,27 +265,39 @@ const containerStyle = {
   }
   
   const headerStyle =  {
-      color: 'ghostwhite',
+      color: '#7f5fff',
       padding: '1em 10px 1em 10px',
       textAlign: 'center',
       background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
-      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+      background: 'white',
   };
+
+  const iconMenuStyle = {
+      color: "#7f5fff",
+      marginRight: '50px',
+      fontSize: '30px',
+      display: "inline-block",
+      boxShadow: "rgba(33, 35, 38, 0.1) 0px 10px 10px -10px"
+  }
+  const userStyle = {
+      fontSize: '30px'
+  }
   
   const ulStyle = {
       float: 'left',
-      color: 'ghostwhite !important'
+      color: '#7f5fff !important'
   }
   
   const menuIcon = {
       fontSize: '30px',
-      color: 'ghostwhite',
+      color: '#7f5fff',
+      textDecoration: 'none',
   }
   
   const brandStyle = {
-      color: 'ghostwhite',
+      color: '#7f5fff',
       background: 'transparent',
-      borderRadius: '20em',
+      borderRadius: '10px',
       padding: '10px',
       fontFamily: 'Trispace',
       boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
@@ -262,7 +305,7 @@ const containerStyle = {
   
   const aStyle = {
     textAlign: "left",
-    color: '#f4f4f4',
+    color: '#7f5fff',
     fontFamily: 'Trispace',
   }
   

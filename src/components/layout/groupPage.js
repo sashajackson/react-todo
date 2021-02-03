@@ -14,10 +14,31 @@ class GroupPage extends Component {
         }
     }
 
+    undoneStyle = () => {
+        return {
+            background: 'white',
+            padding: '10px',
+            borderBottom: '1px #ccc dotted',
+            fontSize: '20px',
+            margin: "0 20px 20px 20px",
+            borderRadius: "30px"
+        }
+      }
+    doneStyle = () => {
+        return {
+            background: 'white',
+            padding: '10px',
+            borderBottom: '1px #ccc dotted',
+            fontSize: '20px',
+            margin: "0 20px 20px 20px",
+            borderRadius: "30px"
+        }
+      }
+
 
     componentDidMount = async () => {
         this._isMounted = true;
-        console.log('entered component did mount');
+        // console.log('entered component did mount');
 
             let obj = {
                 id: localStorage.getItem('fx')
@@ -31,18 +52,18 @@ class GroupPage extends Component {
                                 groups: res.data,
                                 requestComplete: true,
                             })
-                            console.log('state', this.state)
-                            console.log(this.state.groups[0])
+                            // console.log('state', this.state)
+                            // console.log(this.state.groups[0])
                         }
                     })
-                    console.log('this is componentdidmount')
+                    // console.log('this is componentdidmount')
     }
 
     componentDidUpdate(prevProps) {
-        console.log('entered componentdid update')
+        console.log(this.state)
         // Typical usage (don't forget to compare props):
         if(this.state.groups.length !== 0){
-            console.log('time to change page contents');
+            // console.log('time to change page contents');
         }
       }
 
@@ -55,9 +76,6 @@ class GroupPage extends Component {
         return this.count;
     }
 
-    test = () => {
-        console.log()
-    }
 
     myGroupsCall = async () => {
 
@@ -76,9 +94,36 @@ class GroupPage extends Component {
                             console.log('res ', res)
                         }
 
-                        console.log('this is state in group ', this.state)
+                        // console.log('this is state in group ', this.state)
                     })
-            console.log('should console after update');
+            // console.log('should console after update');
+    }
+
+    complete = (id, task, groupId, index, groupIndex) => {
+
+        let complete = this.state.groups[groupIndex].groupTask.filter(v => v.task === task)
+        complete.completed = true;
+        let elem = document.getElementById(id);
+        let icon = document.getElementById(`icon_` + id)
+        elem.style.textDecoration = 'line-through';
+        icon.style.color = 'green';
+        this.updateRecord(groupId, task, index);
+       
+    }
+
+
+    updateRecord = (_id, _task, _index) => {
+        let obj = {
+            id: _id,
+            task: _task,
+            index: _index,
+        }
+
+        axios
+            .put('/updateTask', obj)
+                .then(result => {
+                    console.log('updateTask result data ', result.data)
+                }).catch(err => console.log(err));
     }
 
 
@@ -99,10 +144,27 @@ class GroupPage extends Component {
                             <div style={cardHeader} className="card-header">{group.title}</div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
-                                    
-                                        return (
-                                            <h5 key={index}>{val.task}</h5>
-                                        )
+
+                                        if(this.state.groups[i].groupTask[index].completed){
+                                            console.log(this.state.groups[1].groupTask[index]);
+                                            return (
+                                                <div key={index} className="row" style={this.doneStyle()}>
+                                                    <div className="col-12">
+                                                        <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, index)} } style={displayBlock}>{val.task}</h5>
+                                                        <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        } else {
+                                            return (
+                                                <div key={index} className="row" style={this.undoneStyle()}>
+                                                    <div className="col-12">
+                                                        <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, index, i)} } style={undoneBlock}>{val.task}</h5>
+                                                        <span style={displayBlock1}><i id={`icon_${index}`} style={circle1} className="fas fa-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                            )                                            
+                                        }
                                     })}
 
                                        
@@ -151,4 +213,26 @@ const cardHeader = {
     fontFamily: "Trispace"
 }
 
+const displayBlock = {
+    display: "inline-block",
+    textDecoration: "line-through",
+}
+const doneBlock = {
+    display: "inline-block",
+    float: "right",
+}
+const displayBlock1 = {
+    display: "inline-block",
+    float: "right"
+
+}
+const undoneBlock = {
+    display: "inline-block",
+}
+const circle = {
+    color: "green",
+}
+const circle1 = {
+    color: "red",
+}
 export default GroupPage
