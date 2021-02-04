@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {createBrowserHistory } from 'history'
 import GroupPage from './groupPage'
+import './dashboard.css'
+
 
 
 class Dashboard extends Component {
@@ -28,7 +30,7 @@ render(){
         <div className="">
             <div className="row">
                 <div className="col-12">
-                    <nav className="navbar fixed-top" style={headerStyle}>
+                    <nav className="navbar" style={headerStyle}>
                         <div style={containerStyle} className="container-fluid">
                             <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
                             {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +40,7 @@ render(){
                                 {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li> */}
                                 {/* <li style={iconMenuStyle} className="nav-item"><i className="fas fa-random"></i></li> */}
                                 {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li> */}
-                                <li style={userStyle} className="nav-item"><i className="fas fa-user-circle"></i></li>
+                                <li style={userStyle} className="nav-item"><i className="fas fa-user-circle userCircle"></i></li>
                             </ul>
                             {/* <div className="collapse navbar-collapse" id="navbarNav">
                                 <ul style={ulStyle} className="navbar-nav">

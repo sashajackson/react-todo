@@ -87,14 +87,14 @@ class GroupPage extends Component {
                                     users: newArray,
                                     requestComplete: true,
                                 })
-                                console.log(result.data);
+                                // console.log(result.data);
                             }).catch(err => console.log(err))
 
                     // console.log('this is componentdidmount')
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.state)
+        // console.log(this.state)
         // Typical usage (don't forget to compare props):
         if(this.state.groups.length !== 0){
             // console.log('time to change page contents');
@@ -179,13 +179,15 @@ class GroupPage extends Component {
     showSearch = (username) => {
         let flag = false;
         let usr;
+        let uId;
         console.log('incoming username ', username);
         if(this.state.users.length > 0){
             this.state.users.forEach(val => {
                 if(val.username === username){
                     console.log('found a match')
                     flag = true;
-                    usr = val.username
+                    usr = val.username;
+                    uId = val.id;
                 }
             })
         }
@@ -201,6 +203,7 @@ class GroupPage extends Component {
                 let obj = {
                     id: this.state.clickedCard,
                     user: usr,
+                    userId: uId
                 }
                 axios
                     .post('/updateMembers', obj)
@@ -261,7 +264,7 @@ class GroupPage extends Component {
                                                         {/* <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span> */}
                                                         <h5 style={doneBlock} className="mb-0">
 
-                                                        <span style={{fontFamily:"Trispace"}}> <i style={{color:"green"}} class="fal fa-check"></i>{val.completedBy}</span>
+                                                        <span style={{fontFamily:"Trispace", fontSize:"13px"}}> <i style={{color:"green"}} class="fal fa-check"></i> @{val.completedBy}</span>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -282,7 +285,9 @@ class GroupPage extends Component {
                                        
 
                                         {group.members.map((user, ind) => {
+                                            console.log('this is member posted ', user.member);
                                             if(user.member){
+                                                console.log('member is here');
                                                 return (
                                                 
 
@@ -356,7 +361,9 @@ const cardHeader = {
 
 const displayBlock = {
     display: "inline-block",
-    textDecoration: "line-through",
+    // textDecoration: "line-through",
+    fontFamily:"Trispace",
+    color: "#dbdbdb",
  
 }
 const doneBlock = {

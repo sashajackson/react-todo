@@ -97,19 +97,41 @@ app.post('/createGroup', (req, res) => {
     // console.log('group saved');
 });
 
-app.post('/mygroups', (req, res) => {
+app.post('/mygroups', async (req, res) => {
     // console.log('hello from my groups!')
     let { id } = req.body;
     
-    MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, (err, db) => {
+    MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, async (err, db) => {
         if (err) throw err;
         var dbo = db.db('<dbname>');
         let cursor = dbo.collection("groups");
-        cursor.find({ createdBy: ObjectId(`${id}`) }).toArray().then(result => {
+        let arr = [];
+        await cursor.find({ createdBy: ObjectId(`${id}`) }).toArray().then(result => {
             // console.log('this is my groups result ', result);
-            res.json(result);
+            result.forEach(val => {
+                arr.push(val);
+            })
+            // res.json(result);
+        })
+
+        await cursor.find({members: {$elemMatch: {userId: `${id}`}}}).toArray().then(result => {
+            console.log('this is result array ', result)
+            result.forEach(v => {
+                arr.push(v);
+            })
+            console.log('this is arr ', arr);
+            res.json(arr);
             db.close();
         })
+        
+        // .then(result => {
+            
+        //     result.forEach(val => {
+        //         arr.push(val);
+        //     })
+        // })
+
+    
     })
 })
 
@@ -242,8 +264,11 @@ app.put('/updateTask', async (req, res) => {
 app.post('/updateMembers', (req, res) => {
     let _id = req.body.id;
     let _user = req.body.user;
+    let _userId = req.body.userId;
+
     let obj = {
         member: _user,
+        userId: _userId,
     }
 
     MongoClient.connect(MONGOURI, {useUnifiedTopology:true}, (err, db) => {
