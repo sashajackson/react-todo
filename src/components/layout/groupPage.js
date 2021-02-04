@@ -274,7 +274,7 @@ class GroupPage extends Component {
                                                 <div key={index} className="row" style={this.undoneStyle()}>
                                                     <div className="col-12">
                                                         <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, index, i)} } style={undoneBlock}>{val.task}</h5>
-                                                        <span style={displayBlock1}><i id={`icon_${index}`} style={circle1} className="fas fa-circle"></i></span>
+                                                        {/* <span style={displayBlock1}><i id={`icon_${index}`} style={circle1} className="fal fa-times"></i></span> */}
                                                     </div>
                                                 </div>
                                             )                                            
@@ -285,9 +285,9 @@ class GroupPage extends Component {
                                        
 
                                         {group.members.map((user, ind) => {
-                                            console.log('this is member posted ', user.member);
+                                            
                                             if(user.member){
-                                                console.log('member is here');
+                                               
                                                 return (
                                                 
 
