@@ -57,7 +57,7 @@ app.listen(PORT, function() {
         dbo.collection("todos").find({})
         .toArray(function(err, result) {
             if (err) throw err;
-            console.log('this is id ', id);
+            // console.log('this is id ', id);
             id = result.length;
             return id;
           });
@@ -85,9 +85,9 @@ app.post('/createGroup', (req, res) => {
     group.createdBy = storageId;
     group.title = title;
     group.groupTask = [
-        {id: storageId, task: oneTask, completed: false},
-        {id: storageId, task: twoTask, completed: false},
-        {id: storageId, task: threeTask, completed: false},
+        {id: storageId, task: oneTask, completed: false, completedBy: []},
+        {id: storageId, task: twoTask, completed: false, completedBy: []},
+        {id: storageId, task: threeTask, completed: false, completedBy: []},
     ];
 
     // console.log('successfully created object');
@@ -110,6 +110,22 @@ app.post('/mygroups', (req, res) => {
             res.json(result);
             db.close();
         })
+    })
+})
+
+app.post('/getUserData', (req, res) => {
+    let _id = req.body.id;
+
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err,db) => {
+        let dbo = db.db("<dbname>");
+        let cursor = dbo.collection("users");
+        cursor.find({_id: ObjectId(`${_id}`)}).toArray().then(result => {
+            // console.log('getuser result ', result)
+            // console.log(_id);
+            res.json(result)
+            db.close()
+        })
+
     })
 })
 
@@ -161,6 +177,18 @@ app.get('/getData', async (req, res) => {
       });
 })
 
+app.get('/getUsers', (req, res) => {
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        if(err) throw err;
+        let dbo = db.db('<dbname>');
+        let cursor = dbo.collection('users');
+        cursor.find({}).toArray().then(result => {
+            res.json(result);
+            db.close();
+        })
+    })
+})
+
 app.post('/delete', (req, res) => {
     res.send('successfully called delete');
     MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
@@ -193,27 +221,53 @@ app.put('/updateTask', async (req, res) => {
     let _id = req.body.id;
     let _task = req.body.task;
     let _index = req.body.index;
+    let _userId = req.body.completedBy
     console.log(req.body);
 
-    await MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+    await MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, async (err, db) => {
         if (err) throw err;
         let dbo = db.db('<dbname>');
         let cursor = dbo.collection('groups');
-        // cursor.find({"_id": ObjectId(`${_id}`)}).forEach(value => {
-        //     if(value.groupTask){
-        //         value.groupTask.forEach((property, i) => {
-        //             if(property.task === _task){
-        //                 property.completed = !property.completed;
-        //                 console.log('bool ', property.completed);
-        //                 res.send(property);
-        //             }
-        //         })
-        //     }
-       
-        //     db.close();
-        // })
+        let cursor1 = dbo.collection('users');
+        console.log('req body id in updatetask ', _id)
+        await cursor1.find({_id: ObjectId(`${_userId}`)}).toArray().then(result => {
+            _userId = result[0].username
+            cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$set: {[`groupTask.${_index}.completed`] : true, 
+            [`groupTask.${_index}.completedBy`] : _userId }});
+        })
 
-        cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$set: {[`groupTask.${_index}.completed`] : true}});
+    })
+})
+
+app.post('/updateMembers', (req, res) => {
+    let _id = req.body.id;
+    let _user = req.body.user;
+    let obj = {
+        member: _user,
+    }
+
+    MongoClient.connect(MONGOURI, {useUnifiedTopology:true}, (err, db) => {
+        if(err) throw err
+        let dbo = db.db('<dbname>');
+        let cursor = dbo.collection('groups');
+        //find group by id
+        //push member into member array
+        console.log('this is id ', _id);
+        cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$push:{members: obj}})
+    })
+})
+
+app.post('/getCompletedBy', (req, res) => {
+    let _id = req.body.id
+
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        let dbo = db.db('<dbname>');
+        let cursor = dbo.collection('users');
+        cursor.find({"_id": ObjectId(`${_id}`)}).toArray().then(result => {
+                res.json(result)
+                console.log(result);
+            }
+        )
     })
 })
 
@@ -230,7 +284,7 @@ app.post('/signInApp', (req, res) => {
         cursor.find({email: req.body.email})
             .toArray()
                 .then(result => {
-                    console.log('this is returning post result ', result)
+                    // console.log('this is returning post result ', result)
                     res.json(result);
                     db.close();
         })

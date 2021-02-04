@@ -121,7 +121,7 @@ render(){
 
                 <div className="col-12">
                     <nav className="navbar">
-                    <ul style={{marginLeft:"60px"}} className="navbar-nav d-flex flex-row">
+                    <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
 
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
@@ -129,6 +129,10 @@ render(){
                     </li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
+                    <li style={iconMenuStyle} className="nav-item" onClick={this.signOut}>
+                        <span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span>
+                        {/* <a style={aStyle} onClick={this.signOut} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span> Logout</a> */}
+                    </li>
 
                     </ul>
                     </nav>
@@ -310,7 +314,7 @@ const containerStyle = {
   }
   
   const ulIcon = {
-    color: '#f4f4f4',
+    color: '#7f5fff',
   }
 
   const modalStyle = {

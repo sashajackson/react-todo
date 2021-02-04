@@ -10,6 +10,8 @@ class GroupPage extends Component {
         super(props);
         this.state = {
             groups: [],
+            userInfo: [],
+            users: [],
             requestComplete: false,
         }
     }
@@ -56,6 +58,38 @@ class GroupPage extends Component {
                             // console.log(this.state.groups[0])
                         }
                     })
+            let obj1 = {
+                id: localStorage.getItem('fx')
+            }
+            await axios
+                    .post('/getUserData', obj1)
+                        .then(result => {
+                            this.setState({
+                                groups: this.state.groups,
+                                userInfo: result.data,
+                                requestComplete: true,
+                            })
+                            console.log(this.state)
+                        })
+            await axios 
+                        .get('/getUsers')
+                            .then(result => {
+                                let newArray = [];
+                                result.data.forEach(obj => {
+                                    let newObj = {};
+                                    newObj.username = obj.username;
+                                    newObj.id = obj._id
+                                    newArray.push(newObj);
+                                })
+                                this.setState({
+                                    groups: this.state.groups,
+                                    userInfo: this.state.userInfo,
+                                    users: newArray,
+                                    requestComplete: true,
+                                })
+                                console.log(result.data);
+                            }).catch(err => console.log(err))
+
                     // console.log('this is componentdidmount')
     }
 
@@ -77,13 +111,13 @@ class GroupPage extends Component {
     }
 
 
-    myGroupsCall = async () => {
+    myGroupsCall = () => {
 
             let obj = {
                 id: localStorage.getItem('fx')
             }
 
-           await axios
+            axios
                 .post('/mygroups', obj)
                     .then(res => {
                         if(this._isMounted){
@@ -106,7 +140,8 @@ class GroupPage extends Component {
         let elem = document.getElementById(id);
         let icon = document.getElementById(`icon_` + id)
         elem.style.textDecoration = 'line-through';
-        icon.style.color = 'green';
+        elem.style.color = '#f4f4f4';
+        console.log(groupIndex);
         this.updateRecord(groupId, task, index);
        
     }
@@ -117,6 +152,7 @@ class GroupPage extends Component {
             id: _id,
             task: _task,
             index: _index,
+            completedBy: localStorage.getItem('fx')
         }
 
         axios
@@ -125,6 +161,60 @@ class GroupPage extends Component {
                     console.log('updateTask result data ', result.data)
                 }).catch(err => console.log(err));
     }
+
+    getUser = async () => {
+        let ls = localStorage.getItem('fx');
+        let obj = {
+            id: ls,
+        }
+        let hi = 'hi';
+        // await axios
+        //     .post('/getCompletedBy', obj)
+        //         .then(result => {
+        //             hi = result.data.username
+        //         })
+        return hi;
+    }
+
+    showSearch = (username) => {
+        let flag = false;
+        let usr;
+        console.log('incoming username ', username);
+        if(this.state.users.length > 0){
+            this.state.users.forEach(val => {
+                if(val.username === username){
+                    console.log('found a match')
+                    flag = true;
+                    usr = val.username
+                }
+            })
+        }
+
+        if(flag){
+            console.log('this is usr ', usr);
+            let div = document.createElement('div');
+            div.className = 'userSearch';
+            div.innerHTML = usr;
+            let modalBody = document.getElementById('modal-body');
+            div.addEventListener('click', (e) => {
+                console.log(this.state.clickedCard)
+                let obj = {
+                    id: this.state.clickedCard,
+                    user: usr,
+                }
+                axios
+                    .post('/updateMembers', obj)
+                        .then(result => {
+                            console.log(result.data)
+                        })
+            })
+            modalBody.appendChild(div);
+            return usr;
+        }
+        console.log('users is empty');
+        return 'user does not exist'
+    }
+
 
 
     render(){
@@ -141,17 +231,38 @@ class GroupPage extends Component {
                     <div className="card-group">
                     {this.state.groups.map((group, i) => 
                         <div key={i} className="card text-dark bg-light m-3" style={{}}>
-                            <div style={cardHeader} className="card-header">{group.title}</div>
+                            <div style={cardHeader} className="card-header">{group.title}<i onClick={() => {
+                                this.setState({
+                                    groups: this.state.groups,
+                                    userInfo: this.state.userInfo,
+                                    users: this.state.users,
+                                    requestComplete: this.state.requestComplete,
+                                    clickedCard: group._id,
+                                })
+                            }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} class="fal fa-user-plus"></i></div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
 
-                                        if(this.state.groups[i].groupTask[index].completed){
-                                            console.log(this.state.groups[1].groupTask[index]);
+                                        if(this.state.groups[i].groupTask[index].completed && this.state.groups[i].groupTask[index].completedBy === []){
+                                            
                                             return (
                                                 <div key={index} className="row" style={this.doneStyle()}>
                                                     <div className="col-12">
                                                         <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, index)} } style={displayBlock}>{val.task}</h5>
                                                         <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span>
+                                                    </div>
+                                                </div>
+                                            )
+                                        } else if(this.state.groups[i].groupTask[index].completed && this.state.groups[i].groupTask[index].completedBy !== []){
+                                            return (
+                                                <div key={index} className="row" style={this.doneStyle()}>
+                                                    <div className="col-12">
+                                                        <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, i)} } style={displayBlock}>{val.task}</h5>
+                                                        {/* <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span> */}
+                                                        <h5 style={doneBlock} className="mb-0">
+
+                                                        <span style={{fontFamily:"Trispace"}}> <i style={{color:"green"}} class="fal fa-check"></i>{val.completedBy}</span>
+                                                        </h5>
                                                     </div>
                                                 </div>
                                             )
@@ -165,44 +276,74 @@ class GroupPage extends Component {
                                                 </div>
                                             )                                            
                                         }
+
                                     })}
 
                                        
 
                                         {group.members.map((user, ind) => {
-                                            if(user.username){
+                                            if(user.member){
                                                 return (
-                                                    
-                                                    <h6 key={ind}>{user.username}</h6>
+                                                
+
+                                                        <h6 style={memberStyle} key={ind}>{user.member}</h6>
+                                              
 
                                                 )
-                                            } else {
-                                                return (
-                                                    <h6 key={ind}>No members in this group, add them!</h6>
-                                                )
-                                            } 
+                                            }
                                         })}
 
                                 </div>
                                 </div>                               
 
+
+/**end of group map */
                     )}
                     </div>
                     </div>
                     </div>
+
+                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Find friends</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div id="modal-body" className="modal-body">
+                      <input id="userSearchInput" className="form-control me-2" type="search" placeholder="Search by username" aria-label="Search"/>
+                      
+                      </div>
+                      
+                      <div className="modal-footer">
+                          {/** thinking about putting onclick on button */}
+                        <button onClick={() => {
+                            let el = document.getElementById('userSearchInput').value;
+                            this.showSearch(el);
+                            console.log('button clicked');
+                        }} type="button" className="btn btn-primary">Search</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
     
                 </div>
+                
+
             )
+            
         } else {
             return (
                 <div>
                     
-                    <h1>You have no groups, start one <a href="/creategroup">here</a></h1>
+                    <h4 style={{marginTop:"2em", textAlign:"center"}} >You have no groups, start one! <a href="/creategroup">here</a></h4>
                 </div>
             )
         }
         
     }
+
+    
 }
 
 const cardHeader = {
@@ -216,6 +357,7 @@ const cardHeader = {
 const displayBlock = {
     display: "inline-block",
     textDecoration: "line-through",
+ 
 }
 const doneBlock = {
     display: "inline-block",
@@ -234,5 +376,13 @@ const circle = {
 }
 const circle1 = {
     color: "red",
+}
+const memberStyle = {
+    display: "inline-block",
+    background: "white",
+    borderRadius: "20px",
+    color: "#7f5fff",
+    margin: "10px",
+    padding: "15px",
 }
 export default GroupPage
