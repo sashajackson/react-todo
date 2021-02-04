@@ -69,7 +69,7 @@ class GroupPage extends Component {
                                 userInfo: result.data,
                                 requestComplete: true,
                             })
-                            console.log(this.state)
+                           
                         })
             await axios 
                         .get('/getUsers')
