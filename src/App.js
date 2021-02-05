@@ -276,14 +276,15 @@ createGroup = (url) => {
               <CreateGroup createGroup={this.createGroup} />
             </Route>
 
-            <Route exact path="/signup">
-              <Header />
-              <SUMaster addUser={this.addUser} />
+            <Route exact path="/signup" render={() => (
+              this.isAuth() ? <Dashboard user={this.state.user[0]} /> : <SUMaster addUser={this.addUser} /> 
+              )}>
             </Route>
 
-            <Route exact path="/signIn">
-              <Header />
-              <SignIn submitSignIn={this.submitSignIn} /> 
+            <Route exact path="/signIn" render={() => (
+              this.isAuth() ? <Dashboard user={this.state.user[0]} /> : <SignIn submitSignIn={this.submitSignIn} /> 
+              )}>
+
             </Route>
         
             <Route exact path="/dashboard" render={() => (
