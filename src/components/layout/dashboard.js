@@ -16,6 +16,7 @@ import { storage } from './firebase/fbconfig'
 class Dashboard extends Component {
 _isMounted = false;
 _history = createBrowserHistory({forceRefresh: true});
+history = createBrowserHistory();
 settings = {
     dots: false,
     infinite: false,
@@ -57,6 +58,7 @@ componentWillUnmount = () => {
     this._isMounted = false;
 }
 componentDidUpdate = () => {
+    
 }
 
 changePage = () => {
@@ -94,7 +96,7 @@ render(){
             </div>
 
 
-        <div className="container">
+        <div className="container-fluid">
             <div style={secondRowStyle} className="row">
                 <div className="col-12 variable-width">
                 <Slider {...this.settings}>
@@ -135,7 +137,7 @@ render(){
 
                     </li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
-                        <i style={createStyle} className="fal fa-plus-circle"></i> 
+                        <i style={createStyle} className="fal fa-file-plus"></i> 
                     </li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
@@ -208,7 +210,7 @@ render(){
 
                     </li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
-                        <i style={createStyle} className="fal fa-plus-circle"></i> 
+                        <i style={createStyle} className="fal fa-file-plus"></i> 
                     </li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>

@@ -296,12 +296,13 @@ createGroup = (url) => {
             </Route>
 
             <Route exact path="/" >
-              <Alert />
               <Header />
-              <Input log={this.log} task={this.state.tasks}/>
-              <Time />
+              {/* <SignIn submitSignIn={this.submitSignIn} />  */}
+              {/* <Alert />
+              <Input log={this.log} task={this.state.tasks}/> */}
+              {/* <Time />
               <Task task={this.state.tasks} markComplete={this.markComplete}
-                  delTodo={this.delTodo} update={this.update} log={this.log}/>
+                  delTodo={this.delTodo} update={this.update} log={this.log}/> */}
             </Route>
 
             </Switch>

@@ -1,5 +1,6 @@
 import React, { Component, useState } from 'react'
 import { storage } from './firebase/fbconfig'
+import { Link } from 'react-router-dom'
 
 class CreateGroup extends Component {
 
@@ -48,9 +49,10 @@ handleUpload = () => {
                                     <li className="nav-item">
                                         <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
                                     </li>
-                                    <li className="nav-item">
-                                        <a style={aStyle} className="nav-link" onClick={this.isAuth}><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> {this.display} </a>
-                                    </li>
+                                    <Link to="/dashboard" className="nav-item">
+                                    <i className="fad fa-sign-in-alt"></i> Dashboard
+                                        {/* <a style={aStyle} className="nav-link" onClick={this.isAuth}><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> Dashboard </a> */}
+                                    </Link>
                                     <li className="nav-item">
                                         <a style={aStyle} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
                                     </li>

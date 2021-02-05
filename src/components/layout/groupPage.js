@@ -1,9 +1,12 @@
 import React , { Component } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Loader from './loader'
+import {createBrowserHistory } from 'history'
 
 class GroupPage extends Component {
     _isMounted = false;
+    _history = createBrowserHistory({forceRefresh:true})
     count = 0;
 
 
@@ -95,6 +98,7 @@ class GroupPage extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log('component did update')
         // console.log(this.state)
         // Typical usage (don't forget to compare props):
         if(this.state.groups.length !== 0){
@@ -144,6 +148,7 @@ class GroupPage extends Component {
         elem.style.color = '#f4f4f4';
         console.log(groupIndex);
         this.updateRecord(groupId, task, index);
+        this._history.push('/dashboard');
        
     }
 
@@ -209,8 +214,14 @@ class GroupPage extends Component {
                 axios
                     .post('/updateMembers', obj)
                         .then(result => {
-                            console.log(result.data)
+                            this.setState({
+                                groups: this.state.groups,
+                                userInfo: this.state.userInfo,
+                                users: this.state.users,
+                                requestComplete: true,
+                            })
                         })
+                        this._history.push('/dashboard')
             })
             modalBody.appendChild(div);
             return usr;
@@ -235,7 +246,8 @@ class GroupPage extends Component {
                     <div className="card-group">
                     {this.state.groups.map((group, i) => 
                         <div key={i} className="card text-dark bg-light m-3" style={{}}>
-                            <div style={cardHeader} className="card-header">{group.title}<i onClick={() => {
+                            <div style={cardHeader} className="card-header">{group.title}
+                            <i onClick={() => {
                                 this.setState({
                                     groups: this.state.groups,
                                     userInfo: this.state.userInfo,
@@ -243,7 +255,10 @@ class GroupPage extends Component {
                                     requestComplete: this.state.requestComplete,
                                     clickedCard: group._id,
                                 })
-                            }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} className="fal fa-user-plus"></i></div>
+                                }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} className="fal fa-user-plus"></i>
+                                                                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginRight:"20px"}} className="fal fa-trash-alt"></i>
+                                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginRight:"20px"}} className="fal fa-plus"></i>
+                            </div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
 
@@ -323,11 +338,11 @@ class GroupPage extends Component {
                       
                       <div className="modal-footer">
                           {/** thinking about putting onclick on button */}
-                        <button onClick={() => {
+                        <Link to="/dashboard" onClick={() => {
                             let el = document.getElementById('userSearchInput').value;
                             this.showSearch(el);
-                            console.log('button clicked');
-                        }} type="button" className="btn btn-primary">Search</button>
+                            
+                        }} type="button" className="btn btn-primary">Search</Link>
                       </div>
                     </div>
                   </div>
