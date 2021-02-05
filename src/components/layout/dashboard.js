@@ -130,7 +130,12 @@ render(){
                     <nav className="navbar">
                     <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
 
-                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li>
+                    <li style={iconMenuStyle} className="nav-item">
+                        <Link to="/">
+                        <i className="fal fa-home-lg-alt"></i>
+                        </Link>
+
+                    </li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
                         <i style={createStyle} className="fal fa-file-plus"></i> 
                     </li>
