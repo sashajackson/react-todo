@@ -130,12 +130,7 @@ render(){
                     <nav className="navbar">
                     <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
 
-                    <li style={iconMenuStyle} className="nav-item">
-                        
-                        <i className="fal fa-home-lg-alt"></i>
-                        
-
-                    </li>
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
                         <i style={createStyle} className="fal fa-file-plus"></i> 
                     </li>
@@ -282,15 +277,13 @@ const iStyle1 = {
 const parentRow1Style = {
     background: "white",
     border: "1px solid #f4f4f4",
-    // marginTop: "5em",
+    zIndex: "9999",
 }
 
 const secondRowStyle = {
     paddingTop: "1em",
     paddingBottom: "10px",
     background: "white",
-    // background: "#efffaf",
-    // boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
     boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
     
 }
