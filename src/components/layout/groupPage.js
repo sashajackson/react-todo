@@ -1,5 +1,6 @@
 import React , { Component } from 'react'
 import axios from 'axios'
+import Loader from './loader'
 
 class GroupPage extends Component {
     _isMounted = false;
@@ -242,7 +243,7 @@ class GroupPage extends Component {
                                     requestComplete: this.state.requestComplete,
                                     clickedCard: group._id,
                                 })
-                            }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} class="fal fa-user-plus"></i></div>
+                            }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} className="fal fa-user-plus"></i></div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
 
@@ -264,7 +265,7 @@ class GroupPage extends Component {
                                                         {/* <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span> */}
                                                         <h5 style={doneBlock} className="mb-0">
 
-                                                        <span style={{fontFamily:"Trispace", fontSize:"13px"}}> <i style={{color:"green"}} class="fal fa-check"></i> @{val.completedBy}</span>
+                                                        <span style={{fontFamily:"Trispace", fontSize:"13px"}}> <i style={{color:"green"}} className="fal fa-check"></i> @{val.completedBy}</span>
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -341,7 +342,7 @@ class GroupPage extends Component {
             return (
                 <div>
                     
-                    <h4 style={{marginTop:"2em", textAlign:"center"}} >You have no groups, start one! <a href="/creategroup">here</a></h4>
+                    <h6 className="p-3 text-center mt-2">Hey, you don't have any groups. Add some!</h6>
                 </div>
             )
         }

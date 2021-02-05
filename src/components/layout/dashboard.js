@@ -3,17 +3,60 @@ import {createBrowserHistory } from 'history'
 import GroupPage from './groupPage'
 import { Link } from 'react-router-dom'
 import './dashboard.css'
+import Loader from './loader'
+import axios from 'axios'
+import './slickslider'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { storage } from './firebase/fbconfig'
 
 
 
 class Dashboard extends Component {
+_isMounted = false;
 _history = createBrowserHistory({forceRefresh: true});
+settings = {
+    dots: false,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+}
 
 constructor(){
     super()
     this.state = {
-        groups: []
+        groups: [],
+        test: true,
     }
+}
+
+componentDidMount = async () => {
+    this._isMounted = true;
+
+        let obj = {
+            id: localStorage.getItem('fx')
+        }
+
+        await axios
+            .post('/mygroups', obj)
+                .then(res => {
+                    if(this._isMounted){
+                        this.setState({
+                            groups: res.data,
+                            requestComplete: true,
+                        })
+                        console.log('state', this.state)
+                        // console.log(this.state.groups[0])
+                    }
+                })
+}
+
+componentWillUnmount = () => {
+    this._isMounted = false;
+}
+componentDidUpdate = () => {
 }
 
 changePage = () => {
@@ -24,9 +67,17 @@ changePage = () => {
      localStorage.removeItem('isAuth');
      localStorage.removeItem('fx');
  }
+ getGroupLength = () => {
+     if(this.state.groups.length === 0){
+         return true;
+     }
+
+     return false;
+ }
 
 render(){
     
+    if(this.state.groups.length !== 0 && this._isMounted){
     return (
         <div className="">
             <div className="row">
@@ -34,91 +85,32 @@ render(){
                     <nav className="navbar" style={headerStyle}>
                         <div style={containerStyle} className="container-fluid">
                             <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
-                            {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
-                            </button> */}
                             <ul className="navbar-nav d-flex flex-row">
-                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-home-lg-alt"></i></li> */}
-                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fas fa-random"></i></li> */}
-                                {/* <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li> */}
                                 <li style={userStyle} className="nav-item"><i className="fas fa-user-circle userCircle"></i></li>
                             </ul>
-                            {/* <div className="collapse navbar-collapse" id="navbarNav">
-                                <ul style={ulStyle} className="navbar-nav">
-                                    <li className="nav-item">
-                                        <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a style={aStyle} className="nav-link" onClick={this.isAuth} data-bs-toggle="modal" data-bs-target="#exampleModal"><span style={ulIcon}><i className="fad fa-search"></i></span> Find friends</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a style={aStyle} className="nav-link" href="/groups"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a style={aStyle} onClick={this.signOut} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span> Logout</a>
-                                    </li>
-                                </ul>
-                            </div> */}
-      
                         </div>
                     </nav>
                 </div>
             </div>
 
-            {/* <div style={headerRow} className="row">
-                <div className="col-6 d-flex justify-content-center align-items-center">
-                    <i style={iStyle} className="fab fa-twitter"></i> 
-                    <i style={iStyle1} className="fab fa-facebook"></i> 
-                    <i style={iStyle1} className="fas fa-envelope"></i>
-                </div>
-                <div style={liFloatRight} className="col-6">
-                    8:34 PM
-                </div>
-            </div> */}
 
         <div className="container">
-
-            {/* <div style={parentRow1Style} className="row">
-
-                <div className="col-6">
-                    <button style={notificationStyle2} type="button" className="btn" onClick={this.changePage}>
-                        <i style={createStyle} className="fas fa-plus-circle"></i> Create
-                    </button>
-                </div>
-
-                <div className="col-6">
-                    <button style={notificationStyle} type="button" className="btn">
-                        <span style={badgeStyle} className="badge">1</span> Alert
-                    </button>
-                </div>
-            </div> */}
-            <div style={secondRowStyle} className="row sticky-top">
-                <div className="col-4">
-                    <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                    <p style={groupTitle}>house stuff</p>
-                </div>
-                <div className="col-4">
-                    <img style={imgStyle} alt='' src="https://images.pexels.com/photos/5796567/pexels-photo-5796567.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                    <p style={groupTitle}>work</p>
-                </div>
-                <div className="col-4">
-                    <img style={imgStyle} alt='' src="https://images.pexels.com/photos/1154638/pexels-photo-1154638.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                    <p style={groupTitle}>vacation</p>
-                </div>
-            </div>
-            {/* <div style={{marginTop: "1em"}} className="row">
-                <div style={{}} className="col-12">
-                    <div style={cardStyle} className="card">
-                    <h5 className="card-title" style={taskTitleStyle}>Task Activity</h5>
-                        <div className="card-body">
-                            <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Lee reserved the Airbnb <span style={groupList}>for Atlanta Trip</span></h1>
-                            <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Ashley washed the dishes <span style={groupList}>for Home Duties</span> </h1>
-                            <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Joshua took out the trash <span style={groupList}>for Home Duties</span></h1>
-                            <h1 style={taskTrackStyle}><i style={checkStyle} className="fad fa-check"></i> Tammy prepped the food <span style={groupList}>for Saturday Night</span></h1>
+            <div style={secondRowStyle} className="row">
+                <div className="col-12 variable-width">
+                <Slider {...this.settings}>
+                {this.state.groups.map((group, i) => {
+                    
+                    return (
+                        <div key={i}>
+                            <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                            <p style={groupTitle}>{group.title}</p>
                         </div>
-                    </div>
-                </div>
-            </div> */}
+
+                    )
+                })}
+                </Slider>
+                </div>                    
+            </div>
             <GroupPage />
             <div style={parentRow1Style} className="row fixed-bottom">
 
@@ -139,7 +131,6 @@ render(){
                     <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.signOut}>
                         <span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span>
-                        {/* <a style={aStyle} onClick={this.signOut} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span> Logout</a> */}
                     </li>
 
                     </ul>
@@ -147,7 +138,7 @@ render(){
                 </div>
             </div>
         </div>
-        {/* <GroupPage /> */}
+       
 
         {/* modal */}
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -169,8 +160,90 @@ render(){
         </div>
         
     )
+/**end of return */
+} else if(this.state.groups.length === 0 && this._isMounted){
+    return (
+        <div className="">
+            <div className="row">
+                <div className="col-12">
+                    <nav className="navbar" style={headerStyle}>
+                        <div style={containerStyle} className="container-fluid">
+                            <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
+                            <ul className="navbar-nav d-flex flex-row">
+                                <li style={userStyle} className="nav-item"><i className="fas fa-user-circle userCircle"></i></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+
+        <div className="container">
+            <div style={secondRowStyle} className="row">
+                <div className="col-12 variable-width">
+                    <h6 className="font-weight-bold text-center">Once you're in some groups, they'll display here.</h6>
+                </div>                    
+            </div>
+            <GroupPage />
+            <div style={parentRow1Style} className="row fixed-bottom">
+
+                <div className="col-12">
+                    <nav className="navbar">
+                    <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
+
+                    <li style={iconMenuStyle} className="nav-item">
+                        <Link to="/">
+                        <i className="fal fa-home-lg-alt"></i>
+                        </Link>
+
+                    </li>
+                    <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
+                        <i style={createStyle} className="fal fa-plus-circle"></i> 
+                    </li>
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
+                    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
+                    <li style={iconMenuStyle} className="nav-item" onClick={this.signOut}>
+                        <span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span>
+                    </li>
+
+                    </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+       
+
+        {/* modal */}
+        <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h5 className="modal-title" id="exampleModalLabel">Find friends</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <form className="d-flex">
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button style={modalStyle} className="btn" type="submit">Search</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+        
+    )
+} else {
+
+    return (
+
+        <Loader />
+    )
 }
 
+/** end of render */
+    }
+/** end of class */
 }
 
 const headerRow = {
@@ -197,6 +270,7 @@ const iStyle1 = {
 const parentRow1Style = {
     background: "white",
     border: "1px solid #f4f4f4",
+    marginTop: "5em",
 }
 
 const secondRowStyle = {
