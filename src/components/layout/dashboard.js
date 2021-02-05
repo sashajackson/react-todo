@@ -68,6 +68,7 @@ changePage = () => {
  signOut = () => {
      localStorage.removeItem('isAuth');
      localStorage.removeItem('fx');
+     this._history.push('/signin')
  }
  getGroupLength = () => {
      if(this.state.groups.length === 0){

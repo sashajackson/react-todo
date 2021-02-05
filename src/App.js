@@ -10,6 +10,7 @@ import SignIn from './components/layout/signIn'
 import CreateGroup from './components/layout/createGroup'
 import SUMaster from './components/layout/signinmaster'
 import GroupPage from './components/layout/groupPage'
+import Main from './components/layout/mainPage'
 import { Router, Route, Redirect, Switch } from 'react-router-dom'
 import history from '../src/services/history'
 import Dashboard from './components/layout/dashboard'
@@ -296,7 +297,7 @@ createGroup = (url) => {
             </Route>
 
             <Route exact path="/" >
-              <Header />
+              <Main />
               {/* <SignIn submitSignIn={this.submitSignIn} />  */}
               {/* <Alert />
               <Input log={this.log} task={this.state.tasks}/> */}
