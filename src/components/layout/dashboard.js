@@ -124,7 +124,7 @@ render(){
                 </div>                    
             </div>
             <GroupPage />
-            <div style={parentRow1Style} className="row fixed-bottom">
+            {/* <div style={parentRow1Style} className="row fixed-bottom">
 
                 <div className="col-12">
                     <nav className="navbar">
@@ -148,9 +148,33 @@ render(){
                     </ul>
                     </nav>
                 </div>
-            </div>
+            </div> */}
         </div>
-       
+        <div style={parentRow1Style} className="row fixed-bottom">
+
+<div className="col-12">
+    <nav className="navbar">
+    <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
+
+    <li style={iconMenuStyle} className="nav-item">
+        <Link to="/">
+        <i className="fal fa-home-lg-alt"></i>
+        </Link>
+
+    </li>
+    <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
+        <i style={createStyle} className="fal fa-file-plus"></i> 
+    </li>
+    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-search"></i></li>
+    <li style={iconMenuStyle} className="nav-item"><i className="fal fa-bell"></i></li>
+    <li style={iconMenuStyle} className="nav-item" onClick={this.signOut}>
+        <span style={ulIcon}><i className="fad fa-sign-out-alt"></i></span>
+    </li>
+
+    </ul>
+    </nav>
+</div>
+</div>
 
         {/* modal */}
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
