@@ -131,9 +131,9 @@ render(){
                     <ul style={{marginLeft:"30px"}} className="navbar-nav d-flex flex-row">
 
                     <li style={iconMenuStyle} className="nav-item">
-                        <Link to="/">
+                        
                         <i className="fal fa-home-lg-alt"></i>
-                        </Link>
+                        
 
                     </li>
                     <li style={iconMenuStyle} className="nav-item" onClick={this.changePage}>
@@ -282,7 +282,7 @@ const iStyle1 = {
 const parentRow1Style = {
     background: "white",
     border: "1px solid #f4f4f4",
-    marginTop: "5em",
+    // marginTop: "5em",
 }
 
 const secondRowStyle = {
