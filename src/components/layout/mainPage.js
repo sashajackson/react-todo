@@ -21,7 +21,7 @@ class Main extends Component {
 }
 
 const imgStyle = {
-    height: '100vh',
+    height: '100%',
     width: '100%',
     objectFit: 'cover',
     position: 'absolute'
