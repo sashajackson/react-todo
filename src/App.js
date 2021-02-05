@@ -219,7 +219,7 @@ class App extends Component {
     console.log('user added..');
 }
 
-createGroup = () => {
+createGroup = (url) => {
   let task1 = document.getElementById("task1").value;
   let task2 = document.getElementById("task2").value;
   let task3 = document.getElementById("task3").value;
@@ -234,6 +234,7 @@ createGroup = () => {
       twoTask: task2,
       threeTask: task3,
       storageId: localStorage.getItem('fx'),
+      picURL: url,
     }
 
     console.log('successfully created object');

@@ -79,10 +79,11 @@ app.get('/creategroup', (req, res) => {
 app.post('/createGroup', (req, res) => {
     console.log('hello from create group!');
 
-    let {createdBy, title, oneTask, twoTask, threeTask, storageId} = req.body;
+    let {createdBy, title, oneTask, twoTask, threeTask, storageId, picURL} = req.body;
     const group = new Group();
     // console.log('this is groupId ');
     group.createdBy = storageId;
+    group.photoUrl = picURL;
     group.title = title;
     group.groupTask = [
         {id: storageId, task: oneTask, completed: false, completedBy: []},

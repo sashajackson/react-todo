@@ -100,13 +100,23 @@ render(){
                 <Slider {...this.settings}>
                 {this.state.groups.map((group, i) => {
                     
-                    return (
-                        <div key={i}>
-                            <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                            <p style={groupTitle}>{group.title}</p>
-                        </div>
+                    if(group.photoUrl){
+                        return (
+                            <div key={i}>
+                                <img style={imgStyle} alt='' src={group.photoUrl} />
+                                <p style={groupTitle}>{group.title}</p>
+                            </div>
+    
+                        )
+                    } else {
 
-                    )
+                        return (
+                            <div key={i}>
+                                <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                                <p style={groupTitle}>{group.title}</p>
+                            </div>
+                        )
+                    }
                 })}
                 </Slider>
                 </div>                    

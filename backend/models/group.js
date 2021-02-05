@@ -15,6 +15,9 @@ let GroupSchema = new Schema({
     },
     groupTask: {
         type: Array
+    },
+    photoUrl: {
+        type: String,
     }
 });
 

@@ -10,9 +10,13 @@ const firebaseConfig = {
     appId: "1:632497291581:web:11a0387c20bbbdc8148554",
     measurementId: "G-N58Z5EKQ7R"
   };
-
-  firebase.initializeApp(firebaseConfig)
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig); // if not initialized
+ }else {
+    firebase.app(firebaseConfig); // if already initialized
+ }
+  
   const storage = firebase.storage();
 
 
-  export default firebase
+  export { storage, firebase as default }
