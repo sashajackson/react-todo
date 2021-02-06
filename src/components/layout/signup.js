@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {createBrowserHistory } from 'history'
+import {Link} from 'react-router-dom'
 
 
 class SignUp extends Component {
@@ -13,11 +14,11 @@ class SignUp extends Component {
             <div className="col-8">
                 <div style={cardStyle} className="card">
                     <h5 style={{textAlign: "center"}}className="card-title">Sign Up</h5>
-                    <input style={inputStyle} type="text" id="saveUsername" name="username" placeholder="enter username"></input>
-                    <input style={inputStyle} type="text" id="saveEmail" name="email" placeholder="enter email"></input>
-                    <input style={inputStyle} type="password" id="savePassword" name="password" placeholder="create password"></input>
+                    <input autoComplete="off" style={inputStyle} type="text" id="saveUsername" name="username" placeholder="enter username"></input>
+                    <input autoComplete="off" style={inputStyle} type="text" id="saveEmail" name="email" placeholder="enter email"></input>
+                    <input autoComplete="off" style={inputStyle} type="password" id="savePassword" name="password" placeholder="create password"></input>
                     <button style={btnStyle} className="btn" onClick={this.props.addUser}>Submit</button>
-                    <p style={pStyle}>or <a>Login</a></p>
+                    <p style={pStyle}>or <Link to="/signIn">Login</Link></p>
 
                 </div>
             </div>

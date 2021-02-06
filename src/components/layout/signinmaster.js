@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SignUp from './signup'
+import Header from './header'
 
 class SUMaster extends Component {
 
@@ -7,8 +8,11 @@ class SUMaster extends Component {
 
     render(){
         return (
+            <div>
 
-            <SignUp addUser={this.props.addUser} />
+                <Header />
+                <SignUp addUser={this.props.addUser} />
+            </div>
         )
     }
 }

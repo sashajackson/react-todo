@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Loader from './loader'
 import {createBrowserHistory } from 'history'
+import './gp.css'
 
 class GroupPage extends Component {
     _isMounted = false;
@@ -201,8 +202,10 @@ class GroupPage extends Component {
         if(flag){
             console.log('this is usr ', usr);
             let div = document.createElement('div');
-            div.className = 'userSearch';
-            div.innerHTML = usr;
+            let span = document.createElement('span');
+            div.className = 'spanDiv';
+            span.className = 'userSearch';
+            span.innerHTML = usr;
             let modalBody = document.getElementById('modal-body');
             div.addEventListener('click', (e) => {
                 console.log(this.state.clickedCard)
@@ -223,6 +226,7 @@ class GroupPage extends Component {
                         })
                         this._history.push('/dashboard')
             })
+            div.appendChild(span);
             modalBody.appendChild(div);
             return usr;
         }
@@ -255,9 +259,13 @@ class GroupPage extends Component {
                                     requestComplete: this.state.requestComplete,
                                     clickedCard: group._id,
                                 })
-                                }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right"}} className="fal fa-user-plus"></i>
-                                                                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginRight:"20px"}} className="fal fa-trash-alt"></i>
-                                <i data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginRight:"20px"}} className="fal fa-plus"></i>
+                                }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginTop:"5px"}} className="fal fa-user-plus"></i>
+                                <i onClick={() => {
+                                    console.log('trash clicked')
+                                }} style={{color:"white", float:"right", marginRight:"30px", marginTop:"5px"}} className="fal fa-trash-alt"></i>
+                                <i onClick={() => {
+                                    console.log('add to list clicked')
+                                }} style={{color:"white", float:"right", marginRight:"30px", marginTop:"5px"}} className="fal fa-plus"></i>
                             </div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
@@ -342,7 +350,7 @@ class GroupPage extends Component {
                             let el = document.getElementById('userSearchInput').value;
                             this.showSearch(el);
                             
-                        }} type="button" className="btn btn-primary">Search</Link>
+                        }} type="button" className="btn searchBtn">Search</Link>
                       </div>
                     </div>
                   </div>

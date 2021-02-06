@@ -1,0 +1,15 @@
+.userSearch {
+    padding: 20px;
+    margin-top: 2em;
+    background: #f4f4f4;
+    border-radius: 30px;
+}
+
+.spanDiv {
+    margin: 2em 0;
+}
+
+.searchBtn {
+    background: #7f5fff;
+    color: white;
+}

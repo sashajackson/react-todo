@@ -15,6 +15,7 @@ import { Router, Route, Redirect, Switch } from 'react-router-dom'
 import history from '../src/services/history'
 import Dashboard from './components/layout/dashboard'
 import {createBrowserHistory } from 'history'
+import Loader from './components/layout/loader'
 
 
 
@@ -169,12 +170,16 @@ class App extends Component {
                 //   user: response.data[0]
                 // })
                 this.user = response.data[0].username;
-                this._history.push('/dashboard')
+                console.log('about to direct to dashboard')
+                return this._history.push('/dashboard')
               } else {
-                this._history.push('/');
+                return this._history.push('/');
               }
             } 
           })
+         return (
+           <Loader />
+         )
  
   }
 
@@ -274,6 +279,10 @@ createGroup = (url) => {
 
             <Route exact path="/creategroup">
               <CreateGroup createGroup={this.createGroup} />
+            </Route>
+
+            <Route exact path="/loader">
+              <Loader />
             </Route>
 
             <Route exact path="/signup" render={() => (
