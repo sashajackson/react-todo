@@ -216,6 +216,34 @@ class GroupPage extends Component {
         return 'user does not exist'
     }
 
+    deleteGroup = (id) => {
+        let obj = {
+            id: id,
+        }
+        axios.post('/deleteGroup', obj);
+        console.log('item deleted');
+        this._history.push('/dashboard')
+    }
+
+    addGroupTask = (e) => {
+        let g = localStorage.getItem('g');
+        let createTask = document.getElementById('taskToGroup').value;
+        console.log(createTask.length);
+
+        if(createTask.length !== 0 && g){
+            let obj = {
+                id: g,
+                storageId: localStorage.getItem('fx'),
+                task: createTask,
+            }
+    
+            axios.post('/createGroupTask', obj);
+            this._history.push('/dashboard')
+
+        } else {
+            alert('You must enter a task before submitting');
+        }
+    }
 
 
     render(){
@@ -243,11 +271,11 @@ class GroupPage extends Component {
                                 })
                                 }} data-bs-toggle="modal" data-bs-target="#exampleModal" style={{color:"white", float:"right", marginTop:"5px"}} className="fal fa-user-plus"></i>
                                 <i onClick={() => {
-                                    console.log('trash clicked')
+                                    this.deleteGroup(group._id);
                                 }} style={{color:"white", float:"right", marginRight:"30px", marginTop:"5px"}} className="fal fa-trash-alt"></i>
                                 <i onClick={() => {
-                                    console.log('add to list clicked')
-                                }} style={{color:"white", float:"right", marginRight:"30px", marginTop:"5px"}} className="fal fa-plus"></i>
+                                    localStorage.setItem('g', group._id)
+                                }} data-bs-toggle="modal" data-bs-target="#modal2" style={{color:"white", float:"right", marginRight:"30px", marginTop:"5px"}} className="fal fa-plus"></i>
                             </div>
                                 <div className="card-body">
                                     {group.groupTask.map((val, index) => {
@@ -333,6 +361,25 @@ class GroupPage extends Component {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div className="modal" tabIndex="-1" id="modal2">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">Create a group task</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                        <input id="taskToGroup" type="text" class="form-control" placeholder="enter task" aria-label="Username" aria-describedby="basic-addon1"/>
+                        </div>
+                        <div className="modal-footer">
+                            <button onClick={() => {
+                                this.addGroupTask();
+                            }} type="button" className="btn btn-primary">Submit</button>
+                        </div>
+                        </div>
+                    </div>
                 </div>
     
                 </div>

@@ -288,6 +288,32 @@ app.post('/signInApp', (req, res) => {
     })
 })
 
+app.post('/deleteGroup', (req, res) => {
+    let {id} = req.body;
+    MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
+        if (err) throw err;
+        var dbo = db.db('<dbname>');
+        let cursor = dbo.collection('groups');
+        cursor.deleteOne({_id: ObjectId(`${id}`)}).then(res => {
+
+            
+            db.close();
+        });
+    })
+})
+
+app.post('/createGroupTask', (req, res) => {
+    let { id , task, storageId } = req.body;
+    let obj = {id: storageId, task: task, completed: false, completedBy: []};
+
+    MongoClient.connect(MONGOURI, {useUnifiedTopology:true}, (err, db) => {
+        if (err) throw err;
+        var dbo = db.db('<dbname>');
+        var cursor = dbo.collection('groups');
+        cursor.updateOne({_id: ObjectId(`${id}`)}, {$push: {groupTask: obj}});
+    })
+})
+
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
