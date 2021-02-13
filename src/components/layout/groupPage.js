@@ -238,7 +238,8 @@ class GroupPage extends Component {
             }
     
             axios.post('/createGroupTask', obj);
-            this._history.push('/dashboard')
+            this._history.push('/dashboard');
+            localStorage.removeItem('g')
 
         } else {
             alert('You must enter a task before submitting');
