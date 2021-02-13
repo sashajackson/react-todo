@@ -25,12 +25,11 @@ const corsOptions = {
     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
 }
 
-// const test = path.join(__dirname, '..', 'test.html');
+
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(publicPath));
-// app.use('/', router);
 const base = 'https://react-todo-17.herokuapp.com';
 
 
@@ -57,7 +56,6 @@ app.listen(PORT, function() {
         dbo.collection("todos").find({})
         .toArray(function(err, result) {
             if (err) throw err;
-            // console.log('this is id ', id);
             id = result.length;
             return id;
           });
@@ -77,11 +75,9 @@ app.get('/creategroup', (req, res) => {
 })
 
 app.post('/createGroup', (req, res) => {
-    console.log('hello from create group!');
 
     let {createdBy, title, oneTask, twoTask, threeTask, storageId, picURL} = req.body;
     const group = new Group();
-    // console.log('this is groupId ');
     group.createdBy = storageId;
     group.photoUrl = picURL;
     group.title = title;
@@ -91,15 +87,12 @@ app.post('/createGroup', (req, res) => {
         {id: storageId, task: threeTask, completed: false, completedBy: []},
     ];
 
-    // console.log('successfully created object');
     group.save().then(result => {
         res.json({groups: result})
     }).catch(err => console.log(err))
-    // console.log('group saved');
 });
 
 app.post('/mygroups', async (req, res) => {
-    // console.log('hello from my groups!')
     let { id } = req.body;
     
     MongoClient.connect(MONGOURI, { useUnifiedTopology: true}, async (err, db) => {
@@ -108,31 +101,18 @@ app.post('/mygroups', async (req, res) => {
         let cursor = dbo.collection("groups");
         let arr = [];
         await cursor.find({ createdBy: ObjectId(`${id}`) }).toArray().then(result => {
-            // console.log('this is my groups result ', result);
             result.forEach(val => {
                 arr.push(val);
             })
-            // res.json(result);
         })
 
         await cursor.find({members: {$elemMatch: {userId: `${id}`}}}).toArray().then(result => {
-            console.log('this is result array ', result)
             result.forEach(v => {
                 arr.push(v);
             })
-            console.log('this is arr ', arr);
             res.json(arr);
             db.close();
         })
-        
-        // .then(result => {
-            
-        //     result.forEach(val => {
-        //         arr.push(val);
-        //     })
-        // })
-
-    
     })
 })
 
@@ -143,8 +123,6 @@ app.post('/getUserData', (req, res) => {
         let dbo = db.db("<dbname>");
         let cursor = dbo.collection("users");
         cursor.find({_id: ObjectId(`${_id}`)}).toArray().then(result => {
-            // console.log('getuser result ', result)
-            // console.log(_id);
             res.json(result)
             db.close()
         })
@@ -187,7 +165,6 @@ app.post('/postData', async (req, res) => {
 });
 
 app.get('/getData', async (req, res) => {
-    console.log('served data to user');
     await MongoClient.connect(MONGOURI,{ useUnifiedTopology: true }, function(err, db) {
         if (err) throw err;
         var dbo = db.db("<dbname>");
@@ -245,14 +222,14 @@ app.put('/updateTask', async (req, res) => {
     let _task = req.body.task;
     let _index = req.body.index;
     let _userId = req.body.completedBy
-    console.log(req.body);
+
 
     await MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, async (err, db) => {
         if (err) throw err;
         let dbo = db.db('<dbname>');
         let cursor = dbo.collection('groups');
         let cursor1 = dbo.collection('users');
-        console.log('req body id in updatetask ', _id)
+
         await cursor1.find({_id: ObjectId(`${_userId}`)}).toArray().then(result => {
             _userId = result[0].username
             cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$set: {[`groupTask.${_index}.completed`] : true, 
@@ -276,9 +253,6 @@ app.post('/updateMembers', (req, res) => {
         if(err) throw err
         let dbo = db.db('<dbname>');
         let cursor = dbo.collection('groups');
-        //find group by id
-        //push member into member array
-        console.log('this is id ', _id);
         cursor.updateOne({"_id": ObjectId(`${_id}`)}, {$push:{members: obj}})
     })
 })
@@ -291,7 +265,6 @@ app.post('/getCompletedBy', (req, res) => {
         let cursor = dbo.collection('users');
         cursor.find({"_id": ObjectId(`${_id}`)}).toArray().then(result => {
                 res.json(result)
-                console.log(result);
             }
         )
     })
@@ -302,7 +275,6 @@ app.get('/signIn', (req, res) => {
 });
 
 app.post('/signInApp', (req, res) => {
-    console.log('this is post incoming ', req.body)
     MongoClient.connect(MONGOURI, {useUnifiedTopology: true}, (err, db) => {
         if (err) throw err;
         var dbo = db.db('<dbname>');
@@ -310,7 +282,6 @@ app.post('/signInApp', (req, res) => {
         cursor.find({email: req.body.email})
             .toArray()
                 .then(result => {
-                    // console.log('this is returning post result ', result)
                     res.json(result);
                     db.close();
         })

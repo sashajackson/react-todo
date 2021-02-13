@@ -45,7 +45,6 @@ class GroupPage extends Component {
 
     componentDidMount = async () => {
         this._isMounted = true;
-        // console.log('entered component did mount');
 
             let obj = {
                 id: localStorage.getItem('fx')
@@ -59,8 +58,6 @@ class GroupPage extends Component {
                                 groups: res.data,
                                 requestComplete: true,
                             })
-                            // console.log('state', this.state)
-                            // console.log(this.state.groups[0])
                         }
                     })
             let obj1 = {
@@ -92,18 +89,11 @@ class GroupPage extends Component {
                                     users: newArray,
                                     requestComplete: true,
                                 })
-                                // console.log(result.data);
                             }).catch(err => console.log(err))
-
-                    // console.log('this is componentdidmount')
     }
 
     componentDidUpdate(prevProps) {
-        console.log('component did update')
-        // console.log(this.state)
-        // Typical usage (don't forget to compare props):
         if(this.state.groups.length !== 0){
-            // console.log('time to change page contents');
         }
       }
 
@@ -133,10 +123,7 @@ class GroupPage extends Component {
                             })
                             console.log('res ', res)
                         }
-
-                        // console.log('this is state in group ', this.state)
                     })
-            // console.log('should console after update');
     }
 
     complete = (id, task, groupId, index, groupIndex) => {
@@ -175,11 +162,6 @@ class GroupPage extends Component {
             id: ls,
         }
         let hi = 'hi';
-        // await axios
-        //     .post('/getCompletedBy', obj)
-        //         .then(result => {
-        //             hi = result.data.username
-        //         })
         return hi;
     }
 
@@ -285,7 +267,6 @@ class GroupPage extends Component {
                                                 <div key={index} className="row" style={this.doneStyle()}>
                                                     <div className="col-12">
                                                         <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, i)} } style={displayBlock}>{val.task}</h5>
-                                                        {/* <span style={doneBlock}><i id={`icon_${index}`} style={circle} className="fas fa-circle"></i></span> */}
                                                         <h5 style={doneBlock} className="mb-0">
 
                                                         <span style={{fontFamily:"Trispace", fontSize:"13px"}}> <i style={{color:"green"}} className="fal fa-check"></i> @{val.completedBy}</span>
@@ -298,7 +279,6 @@ class GroupPage extends Component {
                                                 <div key={index} className="row" style={this.undoneStyle()}>
                                                     <div className="col-12">
                                                         <h5 id={`${index}`} onClick={ () => {this.complete(`${index}`, val.task, group._id, index, i)} } style={undoneBlock}>{val.task}</h5>
-                                                        {/* <span style={displayBlock1}><i id={`icon_${index}`} style={circle1} className="fal fa-times"></i></span> */}
                                                     </div>
                                                 </div>
                                             )                                            
@@ -345,7 +325,6 @@ class GroupPage extends Component {
                       </div>
                       
                       <div className="modal-footer">
-                          {/** thinking about putting onclick on button */}
                         <Link to="/dashboard" onClick={() => {
                             let el = document.getElementById('userSearchInput').value;
                             this.showSearch(el);
@@ -385,7 +364,6 @@ const cardHeader = {
 
 const displayBlock = {
     display: "inline-block",
-    // textDecoration: "line-through",
     fontFamily:"Trispace",
     color: "#dbdbdb",
  

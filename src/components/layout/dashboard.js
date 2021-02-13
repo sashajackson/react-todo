@@ -48,8 +48,6 @@ componentDidMount = async () => {
                             groups: res.data,
                             requestComplete: true,
                         })
-                        console.log('state', this.state)
-                        // console.log(this.state.groups[0])
                     }
                 })
 }
