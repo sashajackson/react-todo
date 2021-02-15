@@ -9,7 +9,7 @@ import './slickslider'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { storage } from './firebase/fbconfig'
+
 
 
 
@@ -97,14 +97,14 @@ render(){
 
         <div className="container-fluid">
             <div style={secondRowStyle} className="row">
-                <div className="col-12 variable-width">
+                <div className="col-12">
                 <Slider {...this.settings}>
                 {this.state.groups.map((group, i) => {
                     
                     if(group.photoUrl){
                         return (
-                            <div key={i}>
-                                <img style={imgStyle} alt='' src={group.photoUrl} />
+                            <div key={i} class="groupMenuIcon">
+                                <img class="carousel-img" style={imgStyle} alt='' src={group.photoUrl} />
                                 <p style={groupTitle}>{group.title}</p>
                             </div>
     
@@ -112,8 +112,8 @@ render(){
                     } else {
 
                         return (
-                            <div key={i}>
-                                <img style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                            <div key={i} class="groupMenuIcon">
+                                <img  class="carousel-img" style={imgStyle} alt='' src="https://images.pexels.com/photos/4039452/pexels-photo-4039452.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                                 <p style={groupTitle}>{group.title}</p>
                             </div>
                         )
@@ -256,25 +256,6 @@ render(){
 /** end of class */
 }
 
-const headerRow = {
-    padding: "20px",
-    background: "white",
-    boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
-}
-
-const liFloatRight = {
-    textAlign: "right",
-    fontFamily: 'Trispace',
-    fontSize: '20px',
-}
-
-const iStyle = {
-    fontSize: "20px"
-}
-const iStyle1 = {
-    fontSize: "20px",
-    marginLeft: "30px"
-}
 
 
 const parentRow1Style = {
@@ -290,38 +271,10 @@ const secondRowStyle = {
     boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
     
 }
-const cardStyle = {
-    paddingTop: "20px",
-    background: "white",
-}
 const createStyle = {
-    // fontSize: "30px",
     color: "#7f5fff",
 }
 
-const taskTitleStyle = {
-    fontFamily: 'Trispace',
-    fontSize: '22px',
-    marginTop: "1em",
-    paddingLeft: "20px",
-    textAlign: "center",
-    color: "#7f5fff",
-    
-}
-
-const notificationStyle = {
-    float: "left",
-    marginBottom: "1em",
-    fontFamily: 'Trispace',
-    background: "white",
-    // boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
-}
-const notificationStyle2 = {
-    marginBottom: "1em",
-    fontFamily: 'Trispace',
-    background: "white",
-    // boxShadow: 'rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px',
-}
 const groupTitle = {
     textAlign: "center",
     marginTop: "10px",
@@ -333,25 +286,6 @@ const imgStyle = {
     height: "100px"
 }
 
-const badgeStyle = {
-    borderRadius: "30px",
-    background: "red",
-}
-
-const taskTrackStyle = {
-    marginBottom: "1em",
-    fontSize: "18px",
-    fontWeight: "bold",
-}
-
-const checkStyle = {
-    color: "green"
-}
-
-const groupList = {
-    fontStyle: "italic",
-    fontWeight: "100"
-}
 
 //navbar style
 const containerStyle = {
@@ -359,11 +293,11 @@ const containerStyle = {
   }
   
   const headerStyle =  {
-      color: '#7f5fff',
+      color: 'white',
       padding: '1em 10px 1em 10px',
       textAlign: 'center',
       background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
-      background: 'white',
+    //   background: 'white',
   };
 
   const iconMenuStyle = {
@@ -377,30 +311,14 @@ const containerStyle = {
       fontSize: '30px'
   }
   
-  const ulStyle = {
-      float: 'left',
-      color: '#7f5fff !important'
-  }
-  
-  const menuIcon = {
-      fontSize: '30px',
-      color: '#7f5fff',
-      textDecoration: 'none',
-  }
   
   const brandStyle = {
-      color: '#7f5fff',
+      color: 'white',
       background: 'transparent',
       borderRadius: '10px',
       padding: '10px',
       fontFamily: 'Trispace',
       boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-  }
-  
-  const aStyle = {
-    textAlign: "left",
-    color: '#7f5fff',
-    fontFamily: 'Trispace',
   }
   
   const ulIcon = {

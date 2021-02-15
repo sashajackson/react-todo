@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 4000;
 const router = express.Router();
 const path = require('path');
 const publicPath = path.join(__dirname, '..', 'build');
+const Multer = require('multer');
 require('./models/model');
 require('./models/user');
 require('./models/group')
@@ -24,6 +25,12 @@ const corsOptions = {
     credentials: true,
     methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE']
 }
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024 // no larger than 5mb, you can change as needed.
+    }
+});
 
 
 app.use(cors(corsOptions));
@@ -74,22 +81,37 @@ app.get('/creategroup', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
 
-app.post('/createGroup', (req, res) => {
+app.post('/createGroup', multer.single('file'), (req, res) => {
 
-    let {createdBy, title, oneTask, twoTask, threeTask, storageId, picURL} = req.body;
+    let {title, oneTask, twoTask, threeTask, storageId, upload} = req.body;
     const group = new Group();
-    group.createdBy = storageId;
-    group.photoUrl = picURL;
-    group.title = title;
-    group.groupTask = [
-        {id: storageId, task: oneTask, completed: false, completedBy: []},
-        {id: storageId, task: twoTask, completed: false, completedBy: []},
-        {id: storageId, task: threeTask, completed: false, completedBy: []},
-    ];
 
-    group.save().then(result => {
-        res.json({groups: result})
-    }).catch(err => console.log(err))
+    if(upload === null){
+
+        group.createdBy = storageId;
+        group.title = title;
+        group.groupTask = [
+            {id: storageId, task: oneTask, completed: false, completedBy: []},
+            {id: storageId, task: twoTask, completed: false, completedBy: []},
+            {id: storageId, task: threeTask, completed: false, completedBy: []},
+        ]; 
+        group.save().then(result => {
+            res.json({groups: result})
+        }).catch(err => console.log(err));      
+    } else {
+ 
+        group.createdBy = storageId;
+        group.photoUrl = upload;
+        group.title = title;
+        group.groupTask = [
+            {id: storageId, task: oneTask, completed: false, completedBy: []},
+            {id: storageId, task: twoTask, completed: false, completedBy: []},
+            {id: storageId, task: threeTask, completed: false, completedBy: []},
+        ];
+        group.save().then(result => {
+            res.json({groups: result})
+        }).catch(err => console.log(err));              
+    }
 });
 
 app.post('/mygroups', async (req, res) => {
@@ -317,4 +339,5 @@ app.post('/createGroupTask', (req, res) => {
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(publicPath, 'index.html'));
 })
+
 

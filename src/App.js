@@ -4,6 +4,7 @@ import Header from './components/layout/header'
 import Input from './components/layout/input'
 import './App.css'
 import axios from 'axios'
+import { storage } from './firebase/fbconfig'
 import Time from './components/layout/time'
 import Alert from './components/layout/alert'
 import SignIn from './components/layout/signIn'
@@ -18,13 +19,6 @@ import {createBrowserHistory } from 'history'
 import Loader from './components/layout/loader'
 
 
-
-// let api = axios.create({
-//   baseUrl: 'https://react-todo-17.herokuapp.com',
-  
-// })
-// const base = 'http://localhost:4000';
-
 class App extends Component {
   _isMounted = false;
   _history = createBrowserHistory({forceRefresh: true});
@@ -34,9 +28,7 @@ class App extends Component {
     super();
 
     this.state = {
-        tasks: [
-          // { id: 10, task: "wash car"},
-        ],
+        tasks: [],
         isAuth: true,
         user: [{username: 'Planning with friends, for fun.'}],
 
@@ -51,7 +43,6 @@ class App extends Component {
       axios
         .get('/getData')
         .then((result, err) => {
-          // console.log('this is result data ', result);
           if (this._isMounted) {
             this.setState({
               tasks: result.data,
@@ -66,18 +57,10 @@ class App extends Component {
     this._isMounted = false;
   }
 
-  // alert = () => {
-  //     this.setState({
-  //       user: { username: 'Planning with friends, for fun.'}
-  //     })
-  // }
-    
- 
     markComplete = (id, completed) => {
       this.setState({
         tasks: this.state.tasks.map(todo => {
           if(todo.id === id){
-            console.log('found id', todo.id)
             todo.completed = !todo.completed;
 
             axios
@@ -102,7 +85,7 @@ class App extends Component {
       axios
         .post('/delete', { id: id})
           .then((response) => {
-            console.log(response)
+            // console.log(response)
           })
     }
 
@@ -115,7 +98,7 @@ class App extends Component {
       }})
       .then(result => {
         if (this._isMounted) {
-          console.log('is Mounted, updated field: ', result);
+          // console.log('is Mounted, updated field: ', result);
         }
       });
 
@@ -124,7 +107,6 @@ class App extends Component {
     log = (id) => {
       let todo = document.getElementById('todoBox').value;
       if(todo.length > 0){
-        console.log('id ', this.state.tasks[this.state.tasks.length - 1].id);
           axios.post('/postData', {task: todo, id: this.state.tasks[this.state.tasks.length - 1].id})
           .then(result => {
             let data = [...this.state.tasks]
@@ -159,18 +141,11 @@ class App extends Component {
       axios
         .post('/signInApp', {email: obj.email, password: obj.password})
           .then(response => {
-            console.log(response.data.length)
-            console.log('this is response.data ', response.data)
-            console.log('this is obj password ', obj.password);
             if(response.data.length > 0){
               if(response.data[0].password === obj.password){
                 localStorage.setItem('isAuth', 'true');
                 localStorage.setItem('fx', response.data[0]._id);
-                // this.setState({
-                //   user: response.data[0]
-                // })
                 this.user = response.data[0].username;
-                console.log('about to direct to dashboard')
                 return this._history.push('/dashboard')
               } else {
                 return this._history.push('/');
@@ -196,7 +171,6 @@ class App extends Component {
     let email = document.getElementById('saveEmail').value;
     let password = document.getElementById('savePassword').value;
     let username = document.getElementById('saveUsername').value;
-    console.log('assigned user values..');
 
     if(email && password && username){
         let obj = {
@@ -211,8 +185,6 @@ class App extends Component {
                       user: [ result.data.user ]
                     })
 
-                    console.log('reslt ', result.data)
-                    console.log('state ', this.state)
                     localStorage.setItem('isAuth', 'true');
                     localStorage.setItem('fx', this.state.user[0]._id);
                     this._history.push('/dashboard')
@@ -225,37 +197,63 @@ class App extends Component {
     console.log('user added..');
 }
 
-createGroup = (url) => {
+createGroup = (pic) => {
   let task1 = document.getElementById("task1").value;
   let task2 = document.getElementById("task2").value;
   let task3 = document.getElementById("task3").value;
   let title = document.getElementById("groupTitle").value;
 
   if(task1 && task2 && task3){
-    console.log(this.state.user);
 
-    let obj = {
-      title: title,
-      oneTask: task1,
-      twoTask: task2,
-      threeTask: task3,
-      storageId: localStorage.getItem('fx'),
-      picURL: url,
+    if(pic !== null){
+      const uploadTask = storage.ref(`images/${pic.name}`).put(pic);
+      uploadTask.on('state_changed', snapshot => {}, err => { console.log(err) }, () => {
+        storage
+        .ref("images")
+        .child(pic.name).getDownloadURL().then(url => { 
+  
+          let obj = {
+            title: title,
+            oneTask: task1,
+            twoTask: task2,
+            threeTask: task3,
+            storageId: localStorage.getItem('fx'),
+            upload: url,
+          }
+          
+            axios
+              .post('/createGroup', obj)
+                .then(result => {
+                  this._history.push('/dashboard');
+                })
+          });
+      })
+
+    } else if(pic === null){
+      let obj = {
+        title: title,
+        oneTask: task1,
+        twoTask: task2,
+        threeTask: task3,
+        storageId: localStorage.getItem('fx'),
+        upload: null,
+      }
+      
+        axios
+          .post('/createGroup', obj)
+            .then(result => {
+              this._history.push('/dashboard');
+            })      
     }
-
-    console.log('successfully created object');
-    axios
-      .post('/createGroup', obj)
-        .then(result => {
-          console.log('sucessfully saved')
-          console.log(result.data)
-          this._history.push('/dashboard');
-        })
+    
+  } else {
+    console.log('must enter tasks')
+  }
 
 
-} else {
-  console.log('must enter tasks')
-}
+
+
+
 
 
 
@@ -272,11 +270,6 @@ createGroup = (url) => {
           <Router history={history}>
 
           <Switch>
-          
-            {/* <Route exact path="/signIn" render={() => this.isAuth() ? <Dashboard/> : <Redirect to={{pathname="/signIn"}}}>
-            <SignIn task={this.state.tasks} submitSignIn={this.submitSignIn} /> 
-            </Route> */}
-
             <Route exact path="/creategroup">
               <CreateGroup createGroup={this.createGroup} />
             </Route>
@@ -308,24 +301,16 @@ createGroup = (url) => {
 
             <Route exact path="/" >
               <Main />
-              {/* <SignIn submitSignIn={this.submitSignIn} />  */}
-              {/* <Alert />
-              <Input log={this.log} task={this.state.tasks}/> */}
-              {/* <Time />
-              <Task task={this.state.tasks} markComplete={this.markComplete}
-                  delTodo={this.delTodo} update={this.update} log={this.log}/> */}
             </Route>
 
             </Switch>
 
           </Router>
-          {/* <Router history={history}>
-            <Routes />
-          </Router> */}
-
       </div>
     );
   }
 }
 
 export default App;
+
+

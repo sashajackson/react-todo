@@ -1,5 +1,4 @@
 import React, { Component, useState } from 'react'
-import { storage } from './firebase/fbconfig'
 import { Link } from 'react-router-dom'
 
 class CreateGroup extends Component {
@@ -11,24 +10,21 @@ constructor(props){
     }
 }
 
+
 handleChange = (e) => {
     if(e.target.files[0]){
         this.setState({
             image: e.target.files[0],
         })
-    }
+    } 
 }
 
 handleUpload = () => {
-    const uploadTask = storage.ref(`images/${this.state.image.name}`).put(this.state.image);
-    uploadTask.on('state_changed', snapshot => {}, err => { console.log(err) }, () => {
-        storage
-            .ref("images")
-                .child(this.state.image.name).getDownloadURL().then(url => { console.log(url) 
-                
-                    this.props.createGroup(url);
-                });
-    })
+    if(this.state.image !== null){
+        this.props.createGroup(this.state.image);        
+    } else {
+        this.props.createGroup(null);        
+    }
 }
 
 
@@ -51,7 +47,6 @@ handleUpload = () => {
                                     </li>
                                     <Link to="/dashboard" className="nav-item">
                                     <i className="fad fa-sign-in-alt"></i> Dashboard
-                                        {/* <a style={aStyle} className="nav-link" onClick={this.isAuth}><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> Dashboard </a> */}
                                     </Link>
                                     <li className="nav-item">
                                         <a style={aStyle} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
@@ -85,36 +80,22 @@ handleUpload = () => {
                 <div className="input-group">
                     <span className="input-group-text">Group Name</span>
                     <input id="groupTitle" type="text" aria-label="First name" className="form-control"/>
-                    {/* <input id="groupFile" type="file" onChange={this.handleChange} /> */}
                 </div>
-                {/* <div style={{marginTop: "1em"}} className="input-group mb-3">
-                    <label className="input-group-text" htmlFor="inputGroupSelect01">Add Member</label>
-                    <select defaultValue="1" className="form-select" id="inputGroupSelect01">
-                        <option value="1">Choose..</option>
-                        <option value="2">John</option>
-                        <option value="3">Lisa</option>
-                        <option value="4">Debrah</option>
-                    </select>
-                </div> */}
 
                 <h5 style={{padding: "20px", textAlign: "center", fontFamily: 'Trispace',}} className="card-title">Add Task</h5>
                 <div className="input-group mb-3">
-                    {/* <span className="input-group-text" id="basic-addon1">Task 1</span> */}
                     <input type="text" id="task1" className="form-control" placeholder="Enter task.." aria-label="Username" aria-describedby="basic-addon1"/>               
                 </div>
                 <div className="input-group mb-3">
-                    {/* <span class="input-group-text" id="basic-addon1">Task 1</span> */}
                     <input type="text" id="task2" className="form-control" placeholder="Enter task.." aria-label="Username" aria-describedby="basic-addon1"/>              
                 </div>
                 <div className="input-group mb-3">
-                    {/* <span class="input-group-text" id="basic-addon1">Task 1</span> */}
                     <input type="text" id="task3" className="form-control" placeholder="Enter task.." aria-label="Username" aria-describedby="basic-addon1"/>               
                 </div>
                 <div className="input-group mb-3">
-                <input id="groupFile" type="file" onChange={this.handleChange} />
-                {/* <button onClick={this.handleUpload}>Upload</button> */}
+                <input id="groupFile" type="file" onChange={this.handleChange}/>
                 </div>
-                <button style={submitStyle} type="button" className="btn btn-primary" onClick={this.handleUpload} >Create Group</button>
+                <button style={submitStyle} type="button" className="btn btn-primary" onClick={this.handleUpload}>Create Group</button>
         </div>
     </div>
      

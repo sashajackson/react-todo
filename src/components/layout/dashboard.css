@@ -1,3 +1,12 @@
 .userCircle:hover {
     color: green,
 }
+.carousel-img {
+    margin: 0 auto;
+}
+.navbar {
+    background: #f4f4f4;
+}
+.groupMenuIcon {
+    text-align: center;
+}
