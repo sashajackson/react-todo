@@ -24,52 +24,51 @@ class Main extends Component {
         return (
             <div style={mainDiv}>
                 <div className="container-fluid h-100 p-0">
-                <div className="row">
+                <div style={heroRow} className="row">
                     <div className="col-12 text-center">
-                        <h5 style={{color:"#7f5fff", padding:"1.5em"}}>Group Projects have never been easier.</h5>
-                        <img style={{width:"100%"}} src="https://images.pexels.com/photos/6774155/pexels-photo-6774155.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
+                        <h5 style={{color:"#7f5fff", padding:"1.5em"}}>Planning in groups has never been easier.</h5>
                     </div>
                 </div>
-                <div className="row">
+                <div style={{margin:"1em"}} className="row pt-3 pb-3">
+                    <div className="col-lg-4 col-md-4 col-sm-12">
+                    <div className="card h-100">
+                        <div className="card-body">
+                            <h5 className="card-title text-center"><i class="far fa-glass-cheers"></i> Plan Events</h5>
+                            <p className="card-text text-center">Organize group events with ease.</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-sm-12">
+                    <div className="card h-100">
+                        <div className="card-body">
+                            <h5 className="card-title text-center"><i class="far fa-lightbulb-on"></i> Group Projects</h5>
+                            <p className="card-text text-center">Delegate task in group projects and keep track of who's doing what.</p>
+                        </div>
+                    </div>                     
+                     </div>
+                     <div className="col-lg-4 col-md-4 col-sm-12">
+                     <div className="card h-100">
+                        <div className="card-body">
+                            <h5 className="card-title text-center"><i class="fal fa-running"></i> Personal Goals</h5>
+                            <p className="card-text text-center">Set some goals and stay on target with our easy planner.</p>
+                        </div>
+                    </div>                     
+                     </div>
+                </div>
+                <div style={{background:"white"}} className="row p-3">
+                    <div className="col-12 text-center">
+                        <h1 style={{color:"rgb(127, 95, 255)"}}>Plan, delegate task and coordinate many different types of events, projects and personal goals with our easy planner.</h1>
+                    </div>
+                </div>
+                <div style={{background:"black"}} className="row fixed-bottom">
                     <div className="col-12">
-                        <div style={{padding:"20px", textAlign:"center", opacity:"0.6"}} className="card"> 
-                            <div className="card-title">GroupList makes planning easy!</div>
-                            <div className="card-body text-center">
-                                <ul style={{textAlign:"left", listStyleType:"none"}}>
-                                    <li style={liStyle}>
-                                        <i style={{color:"gold", marginRight:"10px"}} class="fas fa-star"></i>
-                                        Organize your events easier
-                                    </li>
-                                    <li style={liStyle}>
-                                        <i style={{color:"gold", marginRight:"10px"}} class="fas fa-star"></i>
-                                        Make group projects smoother
-                                    </li>
-                                    <li style={liStyle}>
-                                        <i style={{color:"gold", marginRight:"10px"}} class="fas fa-star"></i>
-                                        Keep up with your goals
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-       
-
-
-                <div className="row fixed-bottom">
-                    <div style={{background:"ghostwhite", textAlign:"center"}} className="col-6">
-                        <div style={{padding:"1.5em"}} className='btn'>
-                        <Link style={linkStyle} to="/signIn">Login</Link>
-
-                        </div>
-                    </div>
-
-                    <div style={{background:"ghostwhite", textAlign:"center"}} className="col-6">
-                    <div style={{padding:"1.5em"}} className='btn'>
-                        <Link style={linkStyle} to="/signup">Sign Up</Link>
-                    </div>                       
+                    <nav style={{background:"black"}} class="navbar">
+                        <form class="container-fluid justify-content-center">
+                            <button class="btn btn-outline-primary me-2" type="button"><i class="fab fa-twitter"></i> Twitter</button>
+                            <button class="btn btn-outline-primary me-2" type="button"><i class="fab fa-instagram"></i> Instagram</button>
+                            <button class="btn btn-outline-primary" type="button"><i class="fas fa-dollar-sign"></i> Donate</button>
+                        </form>
+                    </nav>
                     </div>
                 </div>
                 </div>
@@ -81,19 +80,10 @@ class Main extends Component {
 const mainDiv = {
    
 }
-const liStyle = {
-    textDecoration: "none !important",
+const heroRow = {
+    background: "white",
 }
 
-const linkStyle = {
-    color: '#7f5fff',
-    fontSize: '20px',
-}
-
-const infoStyle = {
-    textAlign: 'center',
-    padding: '1.5em',
-}
 
 
 export default Main

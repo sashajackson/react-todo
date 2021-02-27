@@ -1,5 +1,6 @@
 import React, {Component} from 'react' 
 import {createBrowserHistory } from 'history'
+import {Link} from 'react-router-dom'
 import './header.css'
 
 class Header extends Component {
@@ -26,24 +27,13 @@ class Header extends Component {
           <a style={brandStyle} className="navbar-brand" href="/">
             <img style={logo} src="https://projectsbucketsj.s3.us-east-2.amazonaws.com/image_6487327-removebg-preview.png"/>
           </a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul style={ulStyle} className="navbar-nav">
-              <li className="nav-item">
-                <a style={aStyle} className="nav-link active" href="/" aria-current="page"><span style={ulIcon}><i className="fad fa-home-lg-alt"></i></span> Home </a>
-              </li>
-              <li className="nav-item">
-                <a style={aStyle} className="nav-link" onClick={this.isAuth}><span style={ulIcon}><i className="fad fa-sign-in-alt"></i></span> {this.display} </a>
-              </li>
-              <li className="nav-item">
-                <a style={aStyle} className="nav-link" href="/"><span style={ulIcon}><i className="fad fa-users"></i></span> Groups</a>
-              </li>
-            </ul>
+          <div class="">
+            <form class="container-fluid justify-content-end">
+              <Link to='/signIn' class="btn btn-success me-2" type="button">Login</Link>
+              <Link to='/signup' class="btn btn-secondary" type="button">Register</Link>
+            </form>
           </div>
-      
-        </div>
+      </div>
       </nav>
       )
     }
@@ -60,7 +50,7 @@ const headerStyle =  {
     color: 'ghostwhite',
     padding: '10px',
     textAlign: 'center',
-    background: 'linear-gradient(45deg, #7f5fff, #7f5fff, #5f8fff, #5f8fff)',
+    background: 'black',
     boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 };
 
@@ -78,7 +68,6 @@ const brandStyle = {
     color: 'ghostwhite',
     background: '#4c4c4c',
     background: 'transparent',
-    padding: '10px',
 }
 
 const aStyle = {
