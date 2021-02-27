@@ -30,11 +30,6 @@ class Main extends Component {
                         <img style={{width:"100%"}} src="https://images.pexels.com/photos/6774155/pexels-photo-6774155.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
                     </div>
                 </div>
-                {/* <img style={{width:"100%"}} src="https://images.pexels.com/photos/6774155/pexels-photo-6774155.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" />
-                <div style={{position:"absolute", top:"0", background:"white"}} className="row">
-                    <div style={infoStyle} className="col-12 text-center">
-                    </div>
-                </div> */}
                 <div className="row">
                     <div className="col-12">
                         <div style={{padding:"20px", textAlign:"center", opacity:"0.6"}} className="card"> 

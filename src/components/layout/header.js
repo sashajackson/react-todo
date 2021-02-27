@@ -23,7 +23,9 @@ class Header extends Component {
       return (
         <nav className="navbar" style={headerStyle}>
         <div style={containerStyle} className="container-fluid">
-          <a style={brandStyle} className="navbar-brand" href="/">GroupList</a>
+          <a style={brandStyle} className="navbar-brand" href="/">
+            <img style={logo} src="https://projectsbucketsj.s3.us-east-2.amazonaws.com/image_6487327-removebg-preview.png"/>
+          </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"><i className="fas fa-bars" style={menuIcon}></i></span>
           </button>
@@ -46,7 +48,10 @@ class Header extends Component {
       )
     }
 }
-
+const logo = {
+  height: '50px',
+  width: 'auto',
+}
 const containerStyle = {
   paddingLeft: '0'
 }
@@ -73,10 +78,7 @@ const brandStyle = {
     color: 'ghostwhite',
     background: '#4c4c4c',
     background: 'transparent',
-    borderRadius: '20em',
     padding: '10px',
-    fontFamily: 'Trispace',
-    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
 }
 
 const aStyle = {

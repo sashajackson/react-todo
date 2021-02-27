@@ -300,6 +300,7 @@ createGroup = (pic) => {
             </Route>
 
             <Route exact path="/" >
+              <Header />
               <Main />
             </Route>
 
